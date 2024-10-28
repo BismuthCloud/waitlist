@@ -1,14 +1,38 @@
 <script lang="ts">
   let email = '';
   let isSubmitting = false;
+  let error: string | null = null;
+  let success = false;
 
   const handleSubmit = async () => {
     isSubmitting = true;
-    // TODO: Implement your waitlist signup logic here
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
-    email = '';
-    isSubmitting = false;
+    error = null;
+    success = false;
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit');
+      }
+
+      success = true;
+      email = '';
+    } catch (e) {
+      error = e instanceof Error ? e.message : 'Something went wrong';
+    } finally {
+      isSubmitting = false;
+    }
   };
+
 </script>
 
 <main class="min-h-screen bg-dark-900 bg-grid-pattern relative overflow-hidden">
