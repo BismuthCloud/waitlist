@@ -17,15 +17,17 @@
   <div class="container mx-auto px-4 py-20 relative">
     <div class="max-w-3xl mx-auto text-center space-y-8">
       <h1 class="text-5xl md:text-6xl font-bold leading-tight">
-        <span class="gradient-text">Developer Tools</span>
+        <span class="gradient-text">Build Your Dream App</span>
         <br />
-        Reimagined
+        With AI Assistance
       </h1>
       
       <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        Join the waitlist for early access to our revolutionary developer toolkit. 
-        Be among the first to experience the future of development.
+        Meet Bismuth, your AI developer companion that turns ideas into reality. 
+        From concept to deployment, build the application you've always wanted with 
+        intelligent guidance every step of the way.
       </p>
+
 
       <div class="max-w-md mx-auto">
         <form 
