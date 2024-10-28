@@ -35,6 +35,94 @@
 
 </script>
 
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import confetti from 'canvas-confetti';
+
+  let email = '';
+  let isSubmitting = false;
+  let error: string | null = null;
+  let success = false;
+
+  const fireConfetti = () => {
+    const count = 200;
+    const defaults = {
+      origin: { y: 0.7 },
+      zIndex: 1000,
+    };
+
+    function fire(particleRatio: number, opts: any) {
+      confetti({
+        ...defaults,
+        ...opts,
+        particleCount: Math.floor(count * particleRatio),
+      });
+    }
+
+    fire(0.25, {
+      spread: 26,
+      startVelocity: 55,
+      colors: ['#ec4899', '#c084fc', '#f472b6'],
+    });
+
+    fire(0.2, {
+      spread: 60,
+      colors: ['#ec4899', '#c084fc', '#f472b6'],
+    });
+
+    fire(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+      colors: ['#ec4899', '#c084fc', '#f472b6'],
+    });
+
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+      colors: ['#ec4899', '#c084fc', '#f472b6'],
+    });
+
+    fire(0.1, {
+      spread: 120,
+      startVelocity: 45,
+      colors: ['#ec4899', '#c084fc', '#f472b6'],
+    });
+  };
+
+  const handleSubmit = async () => {
+    isSubmitting = true;
+    error = null;
+    success = false;
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit');
+      }
+
+      success = true;
+      email = '';
+      fireConfetti();
+    } catch (e) {
+      error = e instanceof Error ? e.message : 'Something went wrong';
+    } finally {
+      isSubmitting = false;
+    }
+  };
+</script>
+
 <main class="min-h-screen bg-dark-900 bg-grid-pattern relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-primary-500/10 to-transparent pointer-events-none" />
   
@@ -51,7 +139,6 @@
         From concept to deployment, build the application you've always wanted with 
         intelligent guidance every step of the way.
       </p>
-
 
       <div class="max-w-md mx-auto">
         <form 
@@ -85,6 +172,18 @@
             {/if}
           </button>
         </form>
+
+        {#if success}
+          <div class="mt-4 text-primary-400 font-medium animate-fade-in">
+            🎉 You're on the list! Welcome aboard!
+          </div>
+        {/if}
+
+        {#if error}
+          <div class="mt-4 text-red-400 font-medium animate-fade-in">
+            ❌ {error}
+          </div>
+        {/if}
       </div>
 
       <div class="pt-8">
@@ -98,4 +197,5 @@
   <!-- Decorative elements -->
   <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary-500/30 rounded-full blur-[128px] pointer-events-none" />
 </main>
+
 
