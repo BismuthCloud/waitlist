@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5435:5432"  # Using 5435 as a unique port to avoid conflicts
+    environment:
+      POSTGRES_USER: bismuth
+      POSTGRES_PASSWORD: bismuth
+      POSTGRES_DB: waitlist
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bismuth -d waitlist"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
