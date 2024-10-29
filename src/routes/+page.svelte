@@ -121,6 +121,22 @@
 					Join 1,000+ developers already on the waitlist
 				</p>
 			</div>
+			
+			<div class="mt-16">
+				<h2 class="mb-8 text-2xl font-semibold text-white md:text-3xl">See how Bismuth built this site:</h2>
+				<div class="mx-auto max-w-3xl">
+					<div class="relative pb-[56.25%]">
+						<iframe
+							class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
+							src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+							title="How Bismuth Built This Site"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+						></iframe>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- Decorative elements -->
@@ -128,3 +144,4 @@
 		class="pointer-events-none absolute left-1/2 top-20 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary-500/30 blur-[128px]"
 	/>
 </main>
+
