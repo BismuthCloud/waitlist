@@ -1,201 +1,173 @@
 <script lang="ts">
-  let email = '';
-  let isSubmitting = false;
-  let error: string | null = null;
-  let success = false;
+	import { onMount } from 'svelte';
+	import confetti from 'canvas-confetti';
 
-  const handleSubmit = async () => {
-    isSubmitting = true;
-    error = null;
-    success = false;
+	let email = '';
+	let isSubmitting = false;
+	let error: string | null = null;
+	let success = false;
 
-    try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email })
-      });
+	const fireConfetti = () => {
+		const count = 200;
+		const defaults = {
+			origin: { y: 0.7 },
+			zIndex: 1000
+		};
 
-      const data = await response.json();
+		function fire(particleRatio: number, opts: any) {
+			confetti({
+				...defaults,
+				...opts,
+				particleCount: Math.floor(count * particleRatio)
+			});
+		}
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit');
-      }
+		fire(0.25, {
+			spread: 26,
+			startVelocity: 55,
+			colors: ['#ec4899', '#c084fc', '#f472b6']
+		});
 
-      success = true;
-      email = '';
-    } catch (e) {
-      error = e instanceof Error ? e.message : 'Something went wrong';
-    } finally {
-      isSubmitting = false;
-    }
-  };
+		fire(0.2, {
+			spread: 60,
+			colors: ['#ec4899', '#c084fc', '#f472b6']
+		});
 
+		fire(0.35, {
+			spread: 100,
+			decay: 0.91,
+			scalar: 0.8,
+			colors: ['#ec4899', '#c084fc', '#f472b6']
+		});
+
+		fire(0.1, {
+			spread: 120,
+			startVelocity: 25,
+			decay: 0.92,
+			scalar: 1.2,
+			colors: ['#ec4899', '#c084fc', '#f472b6']
+		});
+
+		fire(0.1, {
+			spread: 120,
+			startVelocity: 45,
+			colors: ['#ec4899', '#c084fc', '#f472b6']
+		});
+	};
+
+	const handleSubmit = async () => {
+		isSubmitting = true;
+		error = null;
+		success = false;
+
+		try {
+			const response = await fetch('/api/waitlist', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email })
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.error || 'Failed to submit');
+			}
+
+			success = true;
+			email = '';
+			fireConfetti();
+		} catch (e) {
+			error = e instanceof Error ? e.message : 'Something went wrong';
+		} finally {
+			isSubmitting = false;
+		}
+	};
 </script>
 
-<script lang="ts">
-  import { onMount } from 'svelte';
-  import confetti from 'canvas-confetti';
+<main class="relative min-h-screen overflow-hidden bg-dark-900 bg-grid-pattern">
+	<div
+		class="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary-500/10 to-transparent"
+	/>
 
-  let email = '';
-  let isSubmitting = false;
-  let error: string | null = null;
-  let success = false;
+	<div class="container relative mx-auto px-4 py-20">
+		<div class="mx-auto max-w-3xl space-y-8 text-center">
+			<h1 class="text-5xl font-bold leading-tight md:text-6xl">
+				<span class="gradient-text">Build Your Dream App</span>
+				<br />
+				With AI Assistance
+			</h1>
 
-  const fireConfetti = () => {
-    const count = 200;
-    const defaults = {
-      origin: { y: 0.7 },
-      zIndex: 1000,
-    };
+			<p class="mx-auto max-w-2xl text-xl text-gray-300">
+				Meet Bismuth, your AI developer companion that turns ideas into reality. From concept to
+				deployment, build the application you've always wanted with intelligent guidance every step
+				of the way.
+			</p>
 
-    function fire(particleRatio: number, opts: any) {
-      confetti({
-        ...defaults,
-        ...opts,
-        particleCount: Math.floor(count * particleRatio),
-      });
-    }
+			<div class="mx-auto max-w-md">
+				<form on:submit|preventDefault={handleSubmit} class="flex flex-col gap-4 md:flex-row">
+					<div class="flex-1">
+						<input
+							type="email"
+							bind:value={email}
+							placeholder="Enter your email"
+							required
+							class="input-primary"
+						/>
+					</div>
+					<button type="submit" class="btn-primary whitespace-nowrap" disabled={isSubmitting}>
+						{#if isSubmitting}
+							<span class="inline-flex items-center">
+								<svg
+									class="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+								>
+									<circle
+										class="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										stroke-width="4"
+									></circle>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									></path>
+								</svg>
+								Processing...
+							</span>
+						{:else}
+							Join Waitlist
+						{/if}
+					</button>
+				</form>
 
-    fire(0.25, {
-      spread: 26,
-      startVelocity: 55,
-      colors: ['#ec4899', '#c084fc', '#f472b6'],
-    });
+				{#if success}
+					<div class="animate-fade-in mt-4 font-medium text-primary-400">
+						🎉 You're on the list! Welcome aboard!
+					</div>
+				{/if}
 
-    fire(0.2, {
-      spread: 60,
-      colors: ['#ec4899', '#c084fc', '#f472b6'],
-    });
+				{#if error}
+					<div class="animate-fade-in mt-4 font-medium text-red-400">
+						❌ {error}
+					</div>
+				{/if}
+			</div>
 
-    fire(0.35, {
-      spread: 100,
-      decay: 0.91,
-      scalar: 0.8,
-      colors: ['#ec4899', '#c084fc', '#f472b6'],
-    });
+			<div class="pt-8">
+				<p class="text-sm text-gray-500">Join 1,000+ developers already on the waitlist</p>
+			</div>
+		</div>
+	</div>
 
-    fire(0.1, {
-      spread: 120,
-      startVelocity: 25,
-      decay: 0.92,
-      scalar: 1.2,
-      colors: ['#ec4899', '#c084fc', '#f472b6'],
-    });
-
-    fire(0.1, {
-      spread: 120,
-      startVelocity: 45,
-      colors: ['#ec4899', '#c084fc', '#f472b6'],
-    });
-  };
-
-  const handleSubmit = async () => {
-    isSubmitting = true;
-    error = null;
-    success = false;
-
-    try {
-      const response = await fetch('/api/waitlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit');
-      }
-
-      success = true;
-      email = '';
-      fireConfetti();
-    } catch (e) {
-      error = e instanceof Error ? e.message : 'Something went wrong';
-    } finally {
-      isSubmitting = false;
-    }
-  };
-</script>
-
-<main class="min-h-screen bg-dark-900 bg-grid-pattern relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-b from-primary-500/10 to-transparent pointer-events-none" />
-  
-  <div class="container mx-auto px-4 py-20 relative">
-    <div class="max-w-3xl mx-auto text-center space-y-8">
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight">
-        <span class="gradient-text">Build Your Dream App</span>
-        <br />
-        With AI Assistance
-      </h1>
-      
-      <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-        Meet Bismuth, your AI developer companion that turns ideas into reality. 
-        From concept to deployment, build the application you've always wanted with 
-        intelligent guidance every step of the way.
-      </p>
-
-      <div class="max-w-md mx-auto">
-        <form 
-          on:submit|preventDefault={handleSubmit}
-          class="flex flex-col md:flex-row gap-4"
-        >
-          <div class="flex-1">
-            <input
-              type="email"
-              bind:value={email}
-              placeholder="Enter your email"
-              required
-              class="input-primary"
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn-primary whitespace-nowrap"
-            disabled={isSubmitting}
-          >
-            {#if isSubmitting}
-              <span class="inline-flex items-center">
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Processing...
-              </span>
-            {:else}
-              Join Waitlist
-            {/if}
-          </button>
-        </form>
-
-        {#if success}
-          <div class="mt-4 text-primary-400 font-medium animate-fade-in">
-            🎉 You're on the list! Welcome aboard!
-          </div>
-        {/if}
-
-        {#if error}
-          <div class="mt-4 text-red-400 font-medium animate-fade-in">
-            ❌ {error}
-          </div>
-        {/if}
-      </div>
-
-      <div class="pt-8">
-        <p class="text-sm text-gray-500">
-          Join 1,000+ developers already on the waitlist
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Decorative elements -->
-  <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary-500/30 rounded-full blur-[128px] pointer-events-none" />
+	<!-- Decorative elements -->
+	<div
+		class="pointer-events-none absolute left-1/2 top-20 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary-500/30 blur-[128px]"
+	/>
 </main>
-
-
