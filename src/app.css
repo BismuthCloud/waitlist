@@ -38,11 +38,18 @@
 
   .video-carousel::after {
     content: '→';
-    @apply absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8
+    @apply absolute top-1/2 -translate-y-1/2 w-8 h-8
            flex items-center justify-center
            bg-accent-500/50 text-white rounded-full
            text-lg font-bold
            pointer-events-none;
+    /* Position between first and second video */
+    left: min(32rem, 100%); /* Aligns with end of first video */
+    transform: translate(calc(50% + 0.5rem), -50%); /* Centers between videos accounting for gap */
+    /* Hide when screen is wide enough to show multiple videos */
+    @media (min-width: 1024px) {
+      display: none;
+    }
   }
 
   .video-carousel::-webkit-scrollbar {
@@ -58,7 +65,8 @@
   }
 
   .video-item {
-    @apply flex-none w-full max-w-xl snap-center space-y-2;
+    @apply flex-none w-full snap-center space-y-2;
+    max-width: min(100%, 32rem); /* 32rem = 512px, ensures two videos fit at 1024px */
   }
 
   .video-title {
