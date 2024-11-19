@@ -12,8 +12,8 @@
 	}
 	
 	const videos: VideoMetadata[] = [
-		{ id: 'kR5PLxP30O0', title: 'How Bismuth Built This Site' },
-		{ id: 'your-second-video-id', title: 'Bismuth Handles Complex Tasks' },
+		{ id: 'FfWRp5vLITA', title: 'Bismuth Is Now Autonomous' },
+		{ id: 'BB9MjSahjeM', title: 'How Bismuth Built This Site' },
 		{ id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
 	];
 
