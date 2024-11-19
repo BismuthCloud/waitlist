@@ -30,5 +30,37 @@
            text-white transition-all duration-200;
   }
 
-}
+  .video-carousel {
+    @apply flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.primary.500') theme('colors.dark.800');
+  }
 
+  .video-carousel::-webkit-scrollbar {
+    @apply h-2;
+  }
+
+  .video-carousel::-webkit-scrollbar-track {
+    @apply bg-dark-800 rounded-full;
+  }
+
+  .video-carousel::-webkit-scrollbar-thumb {
+    @apply bg-primary-500 rounded-full;
+  }
+
+  .video-item {
+    @apply flex-none w-full max-w-xl snap-center;
+  }
+
+  .version-comparison {
+    @apply grid md:grid-cols-2 gap-8 p-6 rounded-xl bg-dark-800/50 backdrop-blur-sm;
+  }
+
+  .version-card {
+    @apply p-6 rounded-lg border border-gray-700 bg-dark-900/50;
+  }
+
+  .version-title {
+    @apply text-xl font-semibold mb-4 inline-flex items-center gap-2;
+  }
+}

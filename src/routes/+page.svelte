@@ -135,18 +135,104 @@
 
 			<div class="mt-16">
 				<h2 class="mb-8 text-2xl font-semibold text-white md:text-3xl">
-					See how Bismuth built this site:
+					See Bismuth in Action:
 				</h2>
-				<div class="mx-auto max-w-3xl">
-					<div class="relative pb-[56.25%]">
-						<iframe
-							class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
-							src="https://www.youtube.com/embed/kR5PLxP30O0"
-							title="How Bismuth Built This Site"
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen
-						></iframe>
+				<div class="video-carousel">
+					<div class="video-item">
+						<div class="relative pb-[56.25%]">
+							<iframe
+								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
+								src="https://www.youtube.com/embed/kR5PLxP30O0"
+								title="How Bismuth Built This Site"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						</div>
+					</div>
+					<div class="video-item">
+						<div class="relative pb-[56.25%]">
+							<iframe
+								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
+								src="https://www.youtube.com/embed/your-second-video-id"
+								title="Bismuth Handles Complex Tasks"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						</div>
+					</div>
+					<div class="video-item">
+						<div class="relative pb-[56.25%]">
+							<iframe
+								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
+								src="https://www.youtube.com/embed/your-third-video-id"
+								title="End-to-End Development with Bismuth"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+							></iframe>
+						</div>
+					</div>
+				</div>
+
+				<div class="mt-24">
+					<h2 class="mb-12 text-2xl font-semibold text-white md:text-3xl">
+						The Evolution of Bismuth
+					</h2>
+					<div class="version-comparison">
+						<div class="version-card">
+							<h3 class="version-title">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+								Version 0.1.0
+							</h3>
+							<ul class="space-y-3 text-gray-300">
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">•</span>
+									Required frequent human guidance and intervention
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">•</span>
+									Limited to specific, pre-defined tasks
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">•</span>
+									Step-by-step human validation needed
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">•</span>
+									Basic code understanding and generation
+								</li>
+							</ul>
+						</div>
+						<div class="version-card">
+							<h3 class="version-title">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+								</svg>
+								Version 0.2.0
+							</h3>
+							<ul class="space-y-3 text-gray-300">
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-accent-400">•</span>
+									Autonomous end-to-end task completion
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-accent-400">•</span>
+									Advanced problem-solving capabilities
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-accent-400">•</span>
+									Self-guided decision making and implementation
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-accent-400">•</span>
+									Deep code understanding and intelligent refactoring
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
