@@ -129,7 +129,7 @@
 				{/if}
 				<div class="fixed top-4 right-4 z-10">
 					<a 
-						href="https://discord.gg/YourDiscordInviteLink" 
+						href="https://discord.gg/bismuthai" 
 						target="_blank" 
 						rel="noopener noreferrer" 
 						class="flex items-center gap-1 px-3 py-1.5 text-sm bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-full transition-colors"
