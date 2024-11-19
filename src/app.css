@@ -31,9 +31,23 @@
   }
 
   .video-carousel {
-    @apply flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory;
+    @apply flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory relative;
     scrollbar-width: thin;
     scrollbar-color: theme('colors.primary.500') theme('colors.dark.800');
+  }
+
+  .video-carousel::after {
+    content: '';
+    @apply absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 
+           bg-gradient-to-l from-dark-900/80 to-transparent 
+           pointer-events-none opacity-75;
+  }
+
+  .video-carousel::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 
+           bg-gradient-to-r from-dark-900/80 to-transparent 
+           pointer-events-none opacity-75;
   }
 
   .video-carousel::-webkit-scrollbar {
