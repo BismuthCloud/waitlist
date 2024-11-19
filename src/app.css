@@ -40,7 +40,7 @@
     content: '→';
     @apply absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8
            flex items-center justify-center
-           bg-accent-500/80 text-white rounded-full
+           bg-accent-500/50 text-white rounded-full
            text-lg font-bold
            pointer-events-none;
   }
