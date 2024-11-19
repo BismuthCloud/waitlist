@@ -45,10 +45,16 @@ export default {
         'pulse-subtle': {
           '0%, 100%': { opacity: '0.9' },
           '50%': { opacity: '0.7' }
+        },
+        'swipe-indicator': {
+          '0%': { transform: 'translateX(0)', opacity: '0.3' },
+          '50%': { transform: 'translateX(10px)', opacity: '1' },
+          '100%': { transform: 'translateX(0)', opacity: '0.3' }
         }
       },
       animation: {
-        'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite'
+        'pulse-subtle': 'pulse-subtle 3s ease-in-out infinite',
+        'swipe-indicator': 'swipe-indicator 2s ease-in-out infinite'
       }
     }
   },
