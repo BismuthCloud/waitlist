@@ -14,7 +14,7 @@
 	const videos: VideoMetadata[] = [
 		{ id: 'FfWRp5vLITA', title: 'Bismuth Is Now Autonomous' },
 		{ id: 'BB9MjSahjeM', title: 'How Bismuth Built This Site' },
-		{ id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
+		// { id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
 	];
 
 	const fireConfetti = () => {
