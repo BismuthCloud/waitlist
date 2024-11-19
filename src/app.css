@@ -38,16 +38,16 @@
 
   .video-carousel::after {
     content: '';
-    @apply absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 
-           bg-gradient-to-l from-dark-900/80 to-transparent 
-           pointer-events-none opacity-75;
+    @apply absolute right-0 top-1/2 -translate-y-1/2 w-20 h-24
+           bg-gradient-to-l from-dark-900/90 via-accent-500/20 to-transparent
+           pointer-events-none animate-pulse-subtle;
   }
 
   .video-carousel::before {
     content: '';
-    @apply absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 
-           bg-gradient-to-r from-dark-900/80 to-transparent 
-           pointer-events-none opacity-75;
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-20 h-24
+           bg-gradient-to-r from-dark-900/90 via-accent-500/20 to-transparent
+           pointer-events-none animate-pulse-subtle;
   }
 
   .video-carousel::-webkit-scrollbar {
