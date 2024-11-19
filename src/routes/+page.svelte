@@ -5,6 +5,18 @@
 	let isSubmitting = false;
 	let error: string | null = null;
 	let success = false;
+	
+	interface VideoMetadata {
+		id: string;
+		title: string;
+	}
+	
+	const videos: VideoMetadata[] = [
+		{ id: 'kR5PLxP30O0', title: 'How Bismuth Built This Site' },
+		{ id: 'your-second-video-id', title: 'Bismuth Handles Complex Tasks' },
+		{ id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
+	];
+
 	const fireConfetti = () => {
 		const count = 200;
 		const defaults = { origin: { y: 0.7 }, zIndex: 1000 };
@@ -138,42 +150,21 @@
 					See Bismuth in Action:
 				</h2>
 				<div class="video-carousel">
-					<div class="video-item">
-						<div class="relative pb-[56.25%]">
-							<iframe
-								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
-								src="https://www.youtube.com/embed/kR5PLxP30O0"
-								title="How Bismuth Built This Site"
-								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen
-							></iframe>
+					{#each videos as video}
+						<div class="video-item">
+							<div class="relative pb-[56.25%]">
+								<iframe
+									class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
+									src="https://www.youtube.com/embed/{video.id}"
+									title={video.title}
+									frameborder="0"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="video-title">{video.title}</div>
 						</div>
-					</div>
-					<div class="video-item">
-						<div class="relative pb-[56.25%]">
-							<iframe
-								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
-								src="https://www.youtube.com/embed/your-second-video-id"
-								title="Bismuth Handles Complex Tasks"
-								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen
-							></iframe>
-						</div>
-					</div>
-					<div class="video-item">
-						<div class="relative pb-[56.25%]">
-							<iframe
-								class="absolute inset-0 h-full w-full rounded-lg shadow-lg"
-								src="https://www.youtube.com/embed/your-third-video-id"
-								title="End-to-End Development with Bismuth"
-								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen
-							></iframe>
-						</div>
-					</div>
+					{/each}
 				</div>
 
 				<div class="mt-24">

@@ -37,17 +37,12 @@
   }
 
   .video-carousel::after {
-    content: '';
-    @apply absolute right-0 top-1/2 -translate-y-1/2 w-24 h-32
-           bg-gradient-to-l from-dark-900/80 via-accent-500/40 to-transparent
-           pointer-events-none animate-swipe-indicator;
-  }
-
-  .video-carousel::before {
-    content: '';
-    @apply absolute left-0 top-1/2 -translate-y-1/2 w-24 h-32
-           bg-gradient-to-r from-dark-900/80 via-accent-500/40 to-transparent
-           pointer-events-none animate-swipe-indicator;
+    content: '→';
+    @apply absolute right-4 bottom-8 w-8 h-8
+           flex items-center justify-center
+           bg-accent-500/80 text-white rounded-full
+           text-lg font-bold
+           pointer-events-none;
   }
 
   .video-carousel::-webkit-scrollbar {
@@ -63,7 +58,11 @@
   }
 
   .video-item {
-    @apply flex-none w-full max-w-xl snap-center;
+    @apply flex-none w-full max-w-xl snap-center space-y-2;
+  }
+
+  .video-title {
+    @apply text-sm text-gray-300 text-center mt-2 truncate;
   }
 
   .version-comparison {
