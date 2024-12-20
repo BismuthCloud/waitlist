@@ -11,8 +11,9 @@
 		hasCredit: boolean;
 	}
 
-	interface WaitlistErrorResponse {
-		error: string;
+	interface WaitlistResponse {
+		entry?: WaitlistEntry;
+		error?: string;
 		stats?: WaitlistEntry;
 	}
 
@@ -45,6 +46,7 @@
 	let success = false;
 	let referralData: WaitlistEntry | null = null;
 	let referralUrl = '';
+	let isLoadingCookie = false;
 
 	// Get referral code from URL and check for existing waitlist cookie
 	onMount(async () => {
@@ -55,15 +57,28 @@
 		}
 
 		// Check for existing waitlist cookie
-		const response = await fetch('/api/waitlist', {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' }
-		});
-		const data = await response.json();
-		
-		if (response.ok && data.entry) {
-			referralData = data.entry;
-			success = true;
+		isLoadingCookie = true;
+		error = null;
+		try {
+			const response = await fetch('/api/waitlist', {
+				method: 'GET',
+				headers: { 'Content-Type': 'application/json' }
+			});
+			const data = await response.json() as WaitlistResponse;
+			
+			if (!response.ok) {
+				throw new Error(data.error || 'Failed to check waitlist status');
+			}
+			
+			if (data.entry) {
+				referralData = data.entry;
+				success = true;
+			}
+		} catch (e) {
+			error = e instanceof Error ? e.message : 'Failed to check waitlist status';
+			success = false;
+		} finally {
+			isLoadingCookie = false;
 		}
 	});
 
@@ -116,7 +131,7 @@
 					referralCode: referralUrl 
 				})
 			});
-			const data = await response.json() as { error?: string; entry?: WaitlistEntry; stats?: WaitlistEntry };
+			const data = await response.json() as WaitlistResponse;
 			if (!response.ok) {
 				// Handle "email already registered" case by showing their stats
 				if (data.stats) {

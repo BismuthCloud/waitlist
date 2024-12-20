@@ -2,6 +2,37 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { prisma } from '$lib/server/prisma';
 
+export const GET: RequestHandler = async ({ cookies }) => {
+				try {
+								const email = cookies.get('waitlist_email');
+        
+								if (!email) {
+												return json({ error: 'No waitlist cookie found' }, { status: 404 });
+								}
+
+								const entry = await prisma.waitlistEntry.findUnique({
+												where: { email },
+												select: {
+																email: true,
+																referralCount: true,
+																hasAppAccess: true,
+																hasRateLimit: true,
+																hasCredit: true,
+																referralCode: true
+												}
+								});
+
+								if (!entry) {
+												return json({ error: 'Entry not found' }, { status: 404 });
+								}
+
+								return json({ entry });
+				} catch (error) {
+								console.error('Error fetching waitlist entry:', error);
+								return json({ error: 'Failed to fetch waitlist entry' }, { status: 500 });
+				}
+};
+
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	try {
 		const { email, referralCode } = await request.json();
