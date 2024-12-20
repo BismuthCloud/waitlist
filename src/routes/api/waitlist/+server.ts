@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { prisma } from '$lib/server/prisma';
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, cookies }) => {
 	try {
 		const { email, referralCode } = await request.json();
 
@@ -11,11 +11,28 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 
 		const existingEntry = await prisma.waitlistEntry.findUnique({
-			where: { email }
+			where: { email },
+			select: {
+				email: true,
+				referralCount: true,
+				hasAppAccess: true,
+				hasRateLimit: true,
+				hasCredit: true,
+				referralCode: true
+			}
 		});
 
 		if (existingEntry) {
-			return json({ error: 'Email already registered' }, { status: 400 });
+			return json({ 
+				error: 'Email already registered',
+				stats: {
+					referralCount: existingEntry.referralCount,
+					hasAppAccess: existingEntry.hasAppAccess,
+					hasRateLimit: existingEntry.hasRateLimit,
+					hasCredit: existingEntry.hasCredit,
+					referralCode: existingEntry.referralCode
+				}
+			}, { status: 400 });
 		}
 
 		// Handle referral logic
@@ -77,6 +94,15 @@ export const POST: RequestHandler = async ({ request }) => {
 					}
 				}
 			});
+		});
+
+		// Set long-lived cookie for referral tracking (30 days)
+		cookies.set('waitlist_email', email, {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 30, // 30 days in seconds
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'lax'
 		});
 
 		return json({

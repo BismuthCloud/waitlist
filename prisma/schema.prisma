@@ -10,8 +10,8 @@ datasource db {
 model WaitlistEntry {
   id            String         @id @default(cuid())
   email         String         @unique
-  referralCode  String         @unique @default(cuid())
-  referralCount Int           @default(0)
+  referralCode  String?         @unique @default(cuid())
+  referralCount Int            @default(0)
   
   // Referral relationship
   referredBy    WaitlistEntry?  @relation("ReferralRelation", fields: [referredById], references: [id])

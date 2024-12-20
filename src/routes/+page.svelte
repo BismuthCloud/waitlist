@@ -23,6 +23,17 @@
 		{ count: 9, benefit: "Credit", description: "$3 platform credit" }
 	];
 
+	interface VideoMetadata {
+		id: string;
+		title: string;
+    }
+
+	const videos: VideoMetadata[] = [
+		{ id: 'FfWRp5vLITA', title: 'Bismuth Is Now Autonomous' },
+		{ id: 'BB9MjSahjeM', title: 'How Bismuth Built This Site' },
+		// { id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
+	];
+
 	let email = '';
 	let isSubmitting = false;
 	let error: string | null = null;
