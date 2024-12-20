@@ -72,12 +72,12 @@
 	<div class="container relative mx-auto px-4 py-20">
 		<div class="mx-auto max-w-4xl space-y-8 text-center lg:max-w-5xl">
 			<h1 class="text-6xl font-bold leading-tight md:text-7xl lg:text-8xl">
-				<span class="gradient-text">Build Your Dream App</span> <br /> With AI Assistance
+				<span class="gradient-text">Accelerate Development</span> <br /> With Intelligent AI Coding
 			</h1>
 			<p class="mx-auto max-w-2xl text-xl text-gray-300 md:text-2xl lg:text-3xl">
-				Meet Bismuth, your AI developer companion that turns ideas into reality. From concept to
-				deployment, build the application you've always wanted with intelligent guidance every step
-				of the way.
+				Bismuth is your AI-powered development platform that transforms how developers build, optimize, 
+				and refactor code. Leverage cutting-edge AI to automate complex tasks, generate intelligent 
+				solutions, and dramatically reduce development cycles.
 			</p>
 			<div class="mx-auto max-w-md space-y-4">
 				<form on:submit|preventDefault={handleSubmit} class="flex flex-col gap-4 md:flex-row">
@@ -121,11 +121,11 @@
 				</form>
 				{#if success}
 					<div class="animate-fade-in mt-4 font-medium text-primary-400">
-						🎉 You're on the list! Welcome aboard!
+							You're on the list! Welcome aboard!
 					</div>
 				{/if}
 				{#if error}
-					<div class="animate-fade-in mt-4 font-medium text-red-400">❌ {error}</div>
+					<div class="animate-fade-in mt-4 font-medium text-red-400"> {error}</div>
 				{/if}
 				<div class="fixed top-4 right-4 z-10">
 					<a 
@@ -177,24 +177,50 @@
 								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 								</svg>
-								Version 0.1.0
+								Version 0.1.0: AI Foundations
 							</h3>
 							<ul class="space-y-3 text-gray-300">
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-primary-400">•</span>
-									Required frequent human guidance and intervention
+									<span class="mt-1 text-primary-400">*</span>
+									Prototype AI-assisted code generation
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-primary-400">•</span>
-									Limited to specific, pre-defined tasks
+									<span class="mt-1 text-primary-400">*</span>
+									Initial context understanding capabilities
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-primary-400">•</span>
-									Step-by-step human validation needed
+									<span class="mt-1 text-primary-400">*</span>
+									Basic pattern recognition in code
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-primary-400">•</span>
-									Basic code understanding and generation
+									<span class="mt-1 text-primary-400">*</span>
+									Limited task-specific AI support
+								</li>
+							</ul>
+						</div>
+						<div class="version-card">
+							<h3 class="version-title">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+								Version 1.0.0: AI-Powered Development
+							</h3>
+							<ul class="space-y-3 text-gray-300">
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">*</span>
+									Advanced AI-powered feature additions
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">*</span>
+									Automated intelligent bug fixing
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">*</span>
+									Intelligent code refactoring
+								</li>
+								<li class="flex items-start gap-2">
+									<span class="mt-1 text-primary-400">*</span>
+									Contextual code understanding and generation
 								</li>
 							</ul>
 						</div>
@@ -207,19 +233,19 @@
 							</h3>
 							<ul class="space-y-3 text-gray-300">
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-accent-400">•</span>
+									<span class="mt-1 text-accent-400">*</span>
 									Autonomous end-to-end task completion
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-accent-400">•</span>
+									<span class="mt-1 text-accent-400">*</span>
 									Advanced problem-solving capabilities
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-accent-400">•</span>
+									<span class="mt-1 text-accent-400">*</span>
 									Self-guided decision making and implementation
 								</li>
 								<li class="flex items-start gap-2">
-									<span class="mt-1 text-accent-400">•</span>
+									<span class="mt-1 text-accent-400">*</span>
 									Deep code understanding and intelligent refactoring
 								</li>
 							</ul>
