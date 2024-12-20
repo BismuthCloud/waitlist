@@ -1,21 +1,55 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import confetti from 'canvas-confetti';
+	
+	interface WaitlistEntry {
+		email: string;
+		referralCode: string;
+		referralCount: number;
+		hasAppAccess: boolean;
+		hasRateLimit: boolean;
+		hasCredit: boolean;
+	}
+
+	interface TierInfo {
+		count: number;
+		benefit: string;
+		description: string;
+	}
+
+	const tiers: TierInfo[] = [
+		{ count: 3, benefit: "App Access", description: "Get immediate access to the app" },
+		{ count: 6, benefit: "Rate Limits", description: "Increased API rate limits" },
+		{ count: 9, benefit: "Credit", description: "$3 platform credit" }
+	];
+
 	let email = '';
 	let isSubmitting = false;
 	let error: string | null = null;
 	let success = false;
-	
-	interface VideoMetadata {
-		id: string;
-		title: string;
-	}
-	
-	const videos: VideoMetadata[] = [
-		{ id: 'FfWRp5vLITA', title: 'Bismuth Is Now Autonomous' },
-		{ id: 'BB9MjSahjeM', title: 'How Bismuth Built This Site' },
-		// { id: 'your-third-video-id', title: 'End-to-End Development with Bismuth' }
-	];
+	let referralData: WaitlistEntry | null = null;
+	let referralUrl = '';
+
+	// Get referral code from URL if present
+	onMount(() => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const referralCode = urlParams.get('ref');
+		if (referralCode) {
+			referralUrl = referralCode;
+		}
+	});
+
+	const getNextTier = (count: number): TierInfo | null => {
+		return tiers.find(tier => tier.count > count) || null;
+	};
+
+	const getProgressToNextTier = (count: number): number => {
+		const nextTier = getNextTier(count);
+		if (!nextTier) return 100;
+		const prevTier = tiers[tiers.findIndex(t => t === nextTier) - 1];
+		const start = prevTier ? prevTier.count : 0;
+		return ((count - start) / (nextTier.count - start)) * 100;
+	};
 
 	const fireConfetti = () => {
 		const count = 200;
@@ -40,6 +74,7 @@
 		});
 		fire(0.1, { spread: 120, startVelocity: 45, colors: ['#ec4899', '#c084fc', '#f472b6'] });
 	};
+
 	const handleSubmit = async () => {
 		isSubmitting = true;
 		error = null;
@@ -48,13 +83,17 @@
 			const response = await fetch('/api/waitlist', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email })
+				body: JSON.stringify({ 
+					email,
+					referralCode: referralUrl 
+				})
 			});
 			const data = await response.json();
 			if (!response.ok) {
 				throw new Error(data.error || 'Failed to submit');
 			}
 			success = true;
+			referralData = data.entry;
 			email = '';
 			fireConfetti();
 		} catch (e) {
@@ -119,13 +158,72 @@
 						{/if}
 					</button>
 				</form>
-				{#if success}
+				{#if success && referralData}
+					<div class="animate-fade-in mt-8 space-y-6 rounded-lg bg-dark-800/50 p-6 text-left">
+						<div>
+							<h3 class="text-xl font-semibold text-primary-400">You're on the list! Welcome aboard!</h3>
+							<p class="mt-2 text-gray-300">Share your referral link to earn rewards:</p>
+							<div class="mt-2 flex items-center gap-2">
+								<input
+									type="text"
+									readonly
+									value={`${window.location.origin}?ref=${referralData.referralCode}`}
+									class="input-primary flex-1"
+								/>
+								<button
+									class="btn-primary"
+									on:click={() => {
+										navigator.clipboard.writeText(`${window.location.origin}?ref=${referralData.referralCode}`);
+									}}
+								>
+									Copy
+								</button>
+							</div>
+						</div>
+
+						<div class="space-y-4">
+							<div class="flex items-center justify-between">
+								<span class="text-gray-300">Referral Count: {referralData.referralCount}</span>
+								{#if getNextTier(referralData.referralCount)}
+									<span class="text-primary-400">Next tier: {getNextTier(referralData.referralCount)?.count} referrals</span>
+								{:else}
+									<span class="text-primary-400">All tiers unlocked!</span>
+								{/if}
+							</div>
+							
+							<div class="h-2 overflow-hidden rounded-full bg-dark-700">
+								<div
+									class="h-full bg-primary-500 transition-all duration-500"
+									style="width: {getProgressToNextTier(referralData.referralCount)}%"
+								/>
+							</div>
+
+							<div class="grid gap-4 sm:grid-cols-3">
+								{#each tiers as tier}
+									<div class="rounded-lg bg-dark-700/50 p-4">
+										<div class="flex items-center justify-between">
+											<span class="font-medium text-gray-300">{tier.benefit}</span>
+											{#if referralData.referralCount >= tier.count}
+												<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+													<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+												</svg>
+											{:else}
+												<span class="text-sm text-gray-400">{tier.count} refs</span>
+											{/if}
+										</div>
+										<p class="mt-1 text-sm text-gray-400">{tier.description}</p>
+									</div>
+								{/each}
+							</div>
+						</div>
+					</div>
+				{:else if success}
 					<div class="animate-fade-in mt-4 font-medium text-primary-400">
-							You're on the list! Welcome aboard!
+						You're on the list! Welcome aboard!
 					</div>
 				{/if}
 				{#if error}
-					<div class="animate-fade-in mt-4 font-medium text-red-400"> {error}</div>
+					<div class="animate-fade-in mt-4 font-medium text-red-400">{error}</div>
 				{/if}
 				<div class="fixed top-4 right-4 z-10">
 					<a 
