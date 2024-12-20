@@ -11,6 +11,11 @@
 		hasCredit: boolean;
 	}
 
+	interface WaitlistErrorResponse {
+		error: string;
+		stats?: WaitlistEntry;
+	}
+
 	interface TierInfo {
 		count: number;
 		benefit: string;
@@ -26,7 +31,7 @@
 	interface VideoMetadata {
 		id: string;
 		title: string;
-    }
+				}
 
 	const videos: VideoMetadata[] = [
 		{ id: 'FfWRp5vLITA', title: 'Bismuth Is Now Autonomous' },
@@ -41,12 +46,24 @@
 	let referralData: WaitlistEntry | null = null;
 	let referralUrl = '';
 
-	// Get referral code from URL if present
-	onMount(() => {
+	// Get referral code from URL and check for existing waitlist cookie
+	onMount(async () => {
 		const urlParams = new URLSearchParams(window.location.search);
 		const referralCode = urlParams.get('ref');
 		if (referralCode) {
 			referralUrl = referralCode;
+		}
+
+		// Check for existing waitlist cookie
+		const response = await fetch('/api/waitlist', {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json' }
+		});
+		const data = await response.json();
+		
+		if (response.ok && data.entry) {
+			referralData = data.entry;
+			success = true;
 		}
 	});
 
@@ -99,14 +116,22 @@
 					referralCode: referralUrl 
 				})
 			});
-			const data = await response.json();
+			const data = await response.json() as { error?: string; entry?: WaitlistEntry; stats?: WaitlistEntry };
 			if (!response.ok) {
-				throw new Error(data.error || 'Failed to submit');
+				// Handle "email already registered" case by showing their stats
+				if (data.stats) {
+					success = true;
+					referralData = data.stats;
+					email = '';
+				} else {
+					throw new Error(data.error || 'Failed to submit');
+				}
+			} else {
+				success = true;
+				referralData = data.entry;
+				email = '';
+				fireConfetti();
 			}
-			success = true;
-			referralData = data.entry;
-			email = '';
-			fireConfetti();
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Something went wrong';
 		} finally {
