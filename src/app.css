@@ -4,45 +4,61 @@
 
 @layer base {
   body {
-    @apply bg-dark-900 text-white;
+    @apply bg-dark-true text-white relative;
+    background-image: theme('backgroundImage.bismuth-pattern');
+    @apply before:content-[''] before:absolute before:inset-0 
+          before:bg-gradient-to-br before:from-bismuth-blue-500/10 
+          before:via-bismuth-purple-500/5 before:to-bismuth-gold-500/10 
+          before:pointer-events-none before:animate-crystal-shimmer;
   }
 }
 
 @layer components {
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-accent-500 to-primary-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r 
+          from-bismuth-blue-400 via-bismuth-purple-500 to-bismuth-gold-400
+          animate-metallic-shift;
   }
   
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-600 
-           hover:from-primary-600 hover:via-accent-600 hover:to-primary-700 
-           text-white font-semibold rounded-lg 
-           transform transition-all duration-200 
-           hover:scale-105 focus:ring-2 focus:ring-primary-500 
-           focus:ring-offset-2 focus:ring-offset-dark-900 
-           focus:outline-none;
+    @apply px-6 py-3 relative overflow-hidden
+          bg-gradient-to-r from-bismuth-blue-500 via-bismuth-purple-500 to-bismuth-gold-500
+          hover:from-bismuth-blue-600 hover:via-bismuth-purple-600 hover:to-bismuth-gold-600
+          text-white font-semibold rounded-lg 
+          transform transition-all duration-200 
+          hover:scale-105 focus:ring-2 focus:ring-bismuth-blue-500 
+          focus:ring-offset-2 focus:ring-offset-dark-true 
+          focus:outline-none
+          before:absolute before:inset-0 
+          before:bg-gradient-to-r before:from-transparent 
+          before:via-white/10 before:to-transparent
+          before:translate-x-[-200%] hover:before:translate-x-[200%]
+          before:transition-transform before:duration-1000;
   }
   
   .input-primary {
-    @apply w-full px-4 py-3 bg-dark-800 border border-gray-700 
-           rounded-lg focus:ring-2 focus:ring-primary-500 
-           focus:border-transparent placeholder-gray-500 
-           text-white transition-all duration-200;
+    @apply w-full px-4 py-3 bg-dark-true border border-bismuth-blue-700/50
+          rounded-lg focus:ring-2 focus:ring-bismuth-purple-500 
+          focus:border-bismuth-gold-500 placeholder-gray-500 
+          text-white transition-all duration-200
+          hover:border-bismuth-blue-500/50;
   }
 
   .video-carousel {
     @apply flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory relative;
     scrollbar-width: thin;
-    scrollbar-color: theme('colors.accent.500') theme('colors.dark.800/50');
+    scrollbar-color: theme('colors.bismuth.blue.500') theme('colors.dark.true');
   }
 
   .video-carousel::after {
-    content: '→';
+    content: '-';
     @apply absolute top-1/2 -translate-y-1/2 w-8 h-8
-           flex items-center justify-center
-           bg-accent-500/50 text-white rounded-full
-           text-lg font-bold
-           pointer-events-none;
+          flex items-center justify-center
+          bg-gradient-to-r from-bismuth-blue-500/50 to-bismuth-purple-500/50
+          text-white rounded-full
+          text-lg font-bold
+          pointer-events-none
+          animate-pulse-subtle;
     /* Position between first and second video */
     left: min(32rem, 100%); /* Aligns with end of first video */
     transform: translate(calc(50% + 0.5rem), -50%); /* Centers between videos accounting for gap */
@@ -57,31 +73,48 @@
   }
 
   .video-carousel::-webkit-scrollbar-track {
-    @apply bg-dark-800/50 rounded-full;
+    @apply bg-dark-true rounded-full;
   }
 
   .video-carousel::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 rounded-full hover:bg-accent-500;
+    @apply bg-gradient-to-r from-bismuth-blue-500 via-bismuth-purple-500 to-bismuth-gold-500 
+          rounded-full hover:from-bismuth-blue-400 hover:via-bismuth-purple-400 hover:to-bismuth-gold-400
+          animate-metallic-shift;
   }
 
   .video-item {
-    @apply flex-none w-full snap-center space-y-2;
+    @apply flex-none w-full snap-center space-y-2 relative
+          before:absolute before:inset-0 
+          before:bg-gradient-to-br before:from-bismuth-blue-500/5 
+          before:via-bismuth-purple-500/5 before:to-bismuth-gold-500/5
+          before:opacity-0 hover:before:opacity-100
+          before:transition-opacity before:duration-300;
     max-width: min(100%, 32rem); /* 32rem = 512px, ensures two videos fit at 1024px */
   }
 
   .video-title {
-    @apply text-sm text-gray-300 text-center mt-2 truncate;
+    @apply text-sm text-bismuth-blue-100 text-center mt-2 truncate
+          hover:text-bismuth-gold-300 transition-colors duration-200;
   }
 
   .version-comparison {
-    @apply grid md:grid-cols-2 gap-8 p-6 rounded-xl bg-dark-800/50 backdrop-blur-sm;
+    @apply grid md:grid-cols-2 gap-8 p-6 rounded-xl 
+          bg-gradient-to-br from-dark-true via-dark-true to-bismuth-blue-900/10
+          backdrop-blur-sm border border-bismuth-blue-900/20;
   }
 
   .version-card {
-    @apply p-6 rounded-lg border border-gray-700 bg-dark-900/50;
+    @apply p-6 rounded-lg border border-bismuth-blue-900/30 
+          bg-dark-true/80 backdrop-blur-sm
+          hover:border-bismuth-gold-500/30 
+          transition-colors duration-300
+          relative overflow-hidden;
   }
 
   .version-title {
-    @apply text-xl font-semibold mb-4 inline-flex items-center gap-2;
+    @apply text-xl font-semibold mb-4 inline-flex items-center gap-2
+          bg-gradient-to-r from-bismuth-blue-400 to-bismuth-purple-400
+          bg-clip-text text-transparent
+          animate-metallic-shift;
   }
 }
