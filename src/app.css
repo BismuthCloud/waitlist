@@ -11,7 +11,7 @@
     @apply before:content-[''] before:fixed before:inset-0 
           before:bg-gradient-to-br 
           before:from-bismuth-primary-300/5
-          before:via-bismuth-secondary-300/3
+          before:via-bismuth-secondary-300/10
           before:to-bismuth-tertiary-300/5
           before:pointer-events-none;
   }
