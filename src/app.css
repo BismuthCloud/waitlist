@@ -6,20 +6,14 @@
   html, body {
     @apply bg-black text-white relative min-h-screen;
     background-color: theme('colors.dark.true');
-    background-image: 
-      linear-gradient(to bottom, 
-        theme('colors.bismuth.primary.300/10'), 
-        theme('colors.bismuth.secondary.300/5'), 
-        theme('colors.bismuth.tertiary.300/10')
-      ),
-      theme('backgroundImage.bismuth-pattern');
     
+    /* Subtle bismuth gradient overlay */
     @apply before:content-[''] before:fixed before:inset-0 
           before:bg-gradient-to-br 
-          before:from-bismuth-primary-500/10 
-          before:via-bismuth-secondary-500/5 
-          before:to-bismuth-tertiary-500/10 
-          before:pointer-events-none before:animate-crystal-shimmer;
+          before:from-bismuth-primary-300/5
+          before:via-bismuth-secondary-300/3
+          before:to-bismuth-tertiary-300/5
+          before:pointer-events-none;
   }
 }
 
@@ -109,22 +103,22 @@
 
   .version-comparison {
     @apply grid md:grid-cols-2 gap-8 p-6 rounded-xl 
-          bg-gradient-to-br from-dark-true via-dark-true to-bismuth-blue-900/10
-          backdrop-blur-sm border border-bismuth-blue-900/20;
+          bg-dark-true border-2 border-bismuth-primary-300/20
+          shadow-lg;
   }
 
   .version-card {
-    @apply p-6 rounded-lg border border-bismuth-blue-900/30 
-          bg-dark-true/80 backdrop-blur-sm
-          hover:border-bismuth-gold-500/30 
+    @apply p-6 rounded-lg border-2 border-bismuth-secondary-300/30 
+          bg-dark-true
+          hover:border-bismuth-secondary-400/50 
           transition-colors duration-300
           relative overflow-hidden;
   }
 
   .version-title {
     @apply text-xl font-semibold mb-4 inline-flex items-center gap-2
-          bg-gradient-to-r from-bismuth-blue-400 to-bismuth-purple-400
-          bg-clip-text text-transparent
-          animate-metallic-shift;
+          text-bismuth-primary-300
+          hover:text-bismuth-primary-200
+          transition-colors duration-200;
   }
 }
