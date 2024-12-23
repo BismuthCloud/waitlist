@@ -3,12 +3,22 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-  body {
-    @apply bg-dark-true text-white relative;
-    background-image: theme('backgroundImage.bismuth-pattern');
-    @apply before:content-[''] before:absolute before:inset-0 
-          before:bg-gradient-to-br before:from-bismuth-blue-500/10 
-          before:via-bismuth-purple-500/5 before:to-bismuth-gold-500/10 
+  html, body {
+    @apply bg-black text-white relative min-h-screen;
+    background-color: theme('colors.dark.true');
+    background-image: 
+      linear-gradient(to bottom, 
+        theme('colors.bismuth.primary.300/10'), 
+        theme('colors.bismuth.secondary.300/5'), 
+        theme('colors.bismuth.tertiary.300/10')
+      ),
+      theme('backgroundImage.bismuth-pattern');
+    
+    @apply before:content-[''] before:fixed before:inset-0 
+          before:bg-gradient-to-br 
+          before:from-bismuth-primary-500/10 
+          before:via-bismuth-secondary-500/5 
+          before:to-bismuth-tertiary-500/10 
           before:pointer-events-none before:animate-crystal-shimmer;
   }
 }
@@ -16,17 +26,17 @@
 @layer components {
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r 
-          from-bismuth-blue-400 via-bismuth-purple-500 to-bismuth-gold-400
+          from-bismuth-primary-300 via-bismuth-secondary-300 to-bismuth-tertiary-300
           animate-metallic-shift;
   }
   
   .btn-primary {
     @apply px-6 py-3 relative overflow-hidden
-          bg-gradient-to-r from-bismuth-blue-500 via-bismuth-purple-500 to-bismuth-gold-500
-          hover:from-bismuth-blue-600 hover:via-bismuth-purple-600 hover:to-bismuth-gold-600
+          bg-gradient-to-r from-bismuth-primary-500 via-bismuth-secondary-500 to-bismuth-tertiary-500
+          hover:from-bismuth-primary-600 hover:via-bismuth-secondary-600 hover:to-bismuth-tertiary-600
           text-white font-semibold rounded-lg 
           transform transition-all duration-200 
-          hover:scale-105 focus:ring-2 focus:ring-bismuth-blue-500 
+          hover:scale-105 focus:ring-2 focus:ring-bismuth-primary-500 
           focus:ring-offset-2 focus:ring-offset-dark-true 
           focus:outline-none
           before:absolute before:inset-0 
@@ -37,11 +47,11 @@
   }
   
   .input-primary {
-    @apply w-full px-4 py-3 bg-dark-true border border-bismuth-blue-700/50
-          rounded-lg focus:ring-2 focus:ring-bismuth-purple-500 
-          focus:border-bismuth-gold-500 placeholder-gray-500 
+    @apply w-full px-4 py-3 bg-dark-true border border-bismuth-primary-700/50
+          rounded-lg focus:ring-2 focus:ring-bismuth-secondary-500 
+          focus:border-bismuth-tertiary-500 placeholder-gray-500 
           text-white transition-all duration-200
-          hover:border-bismuth-blue-500/50;
+          hover:border-bismuth-primary-500/50;
   }
 
   .video-carousel {

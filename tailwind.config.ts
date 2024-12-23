@@ -23,7 +23,43 @@ extend: {
       900: '#831843',
       },
       bismuth: {
-      // Iridescent blue variants
+      // Base Bismuth Color Palette
+      primary: {
+            100: '#E6D6E6',
+            200: '#D1B3D1',
+            300: '#C4A8C4', // Primary Bismuth Color
+            400: '#B38DB3',
+            500: '#A673A6',
+            600: '#945A94',
+            700: '#834183',
+            800: '#722772',
+            900: '#610D61',
+      },
+      // Iridescent Variation
+      secondary: {
+            100: '#E0EBEB',
+            200: '#B3D1D1',
+            300: '#9CC4C4', // Secondary Bismuth Color
+            400: '#80B8B8',
+            500: '#66ACAC',
+            600: '#4D9F9F',
+            700: '#339393',
+            800: '#1A8787',
+            900: '#007A7A',
+      },
+      // Metallic Variation
+      tertiary: {
+            100: '#EBEBDF',
+            200: '#D1D1B3',
+            300: '#C4C49C', // Tertiary Bismuth Color
+            400: '#B8B880',
+            500: '#ACAC66',
+            600: '#9F9F4D',
+            700: '#939333',
+            800: '#878719',
+            900: '#7A7A00',
+      },
+      // Existing color variants preserved
       blue: {
             100: '#E6F3FF',
             200: '#B3D9FF',
