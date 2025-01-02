@@ -18,26 +18,33 @@
 }
 
 @layer components {
+    .btn-primary {
+      @apply bg-accent-purple text-neutral-light font-medium px-4 py-2 rounded-lg 
+      hover:bg-opacity-90 transition-all duration-200 ease-in-out;
+    }
+  
+    .btn-secondary {
+      @apply bg-purple-gray text-neutral-light font-medium px-4 py-2 rounded-lg 
+      hover:bg-opacity-90 transition-all duration-200 ease-in-out;
+    }
+  
+    .btn-success {
+      @apply bg-mint text-background font-medium px-4 py-2 rounded-lg 
+      hover:bg-opacity-90 transition-all duration-200 ease-in-out;
+    }
+  
+    .btn-error {
+      @apply bg-orange text-background font-medium px-4 py-2 rounded-lg 
+      hover:bg-opacity-90 transition-all duration-200 ease-in-out;
+    }
+
+
+
+
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r 
           from-bismuth-primary-300 via-bismuth-secondary-300 to-bismuth-tertiary-300
           animate-metallic-shift;
-  }
-  
-  .btn-primary {
-    @apply px-6 py-3 relative overflow-hidden
-          bg-gradient-to-r from-bismuth-primary-500 via-bismuth-secondary-500 to-bismuth-tertiary-500
-          hover:from-bismuth-primary-600 hover:via-bismuth-secondary-600 hover:to-bismuth-tertiary-600
-          text-white font-semibold rounded-lg 
-          transform transition-all duration-200 
-          hover:scale-105 focus:ring-2 focus:ring-bismuth-primary-500 
-          focus:ring-offset-2 focus:ring-offset-dark-true 
-          focus:outline-none
-          before:absolute before:inset-0 
-          before:bg-gradient-to-r before:from-transparent 
-          before:via-white/10 before:to-transparent
-          before:translate-x-[-200%] hover:before:translate-x-[200%]
-          before:transition-transform before:duration-1000;
   }
   
   .input-primary {
@@ -46,79 +53,5 @@
           focus:border-bismuth-tertiary-500 placeholder-gray-500 
           text-white transition-all duration-200
           hover:border-bismuth-primary-500/50;
-  }
-
-  .video-carousel {
-    @apply flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory relative;
-    scrollbar-width: thin;
-    scrollbar-color: theme('colors.bismuth.blue.500') theme('colors.dark.true');
-  }
-
-  .video-carousel::after {
-    content: '-';
-    @apply absolute top-1/2 -translate-y-1/2 w-8 h-8
-          flex items-center justify-center
-          bg-gradient-to-r from-bismuth-blue-500/50 to-bismuth-purple-500/50
-          text-white rounded-full
-          text-lg font-bold
-          pointer-events-none
-          animate-pulse-subtle;
-    /* Position between first and second video */
-    left: min(32rem, 100%); /* Aligns with end of first video */
-    transform: translate(calc(50% + 0.5rem), -50%); /* Centers between videos accounting for gap */
-    /* Hide when screen is wide enough to show multiple videos */
-    @media (min-width: 1024px) {
-      display: none;
-    }
-  }
-
-  .video-carousel::-webkit-scrollbar {
-    @apply h-3;
-  }
-
-  .video-carousel::-webkit-scrollbar-track {
-    @apply bg-dark-true rounded-full;
-  }
-
-  .video-carousel::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-r from-bismuth-blue-500 via-bismuth-purple-500 to-bismuth-gold-500 
-          rounded-full hover:from-bismuth-blue-400 hover:via-bismuth-purple-400 hover:to-bismuth-gold-400
-          animate-metallic-shift;
-  }
-
-  .video-item {
-    @apply flex-none w-full snap-center space-y-2 relative
-          before:absolute before:inset-0 
-          before:bg-gradient-to-br before:from-bismuth-blue-500/5 
-          before:via-bismuth-purple-500/5 before:to-bismuth-gold-500/5
-          before:opacity-0 hover:before:opacity-100
-          before:transition-opacity before:duration-300;
-    max-width: min(100%, 32rem); /* 32rem = 512px, ensures two videos fit at 1024px */
-  }
-
-  .video-title {
-    @apply text-sm text-bismuth-blue-100 text-center mt-2 truncate
-          hover:text-bismuth-gold-300 transition-colors duration-200;
-  }
-
-  .version-comparison {
-    @apply grid md:grid-cols-2 gap-8 p-6 rounded-xl 
-          bg-dark-true border-2 border-bismuth-primary-300/20
-          shadow-lg;
-  }
-
-  .version-card {
-    @apply p-6 rounded-lg border-2 border-bismuth-secondary-300/30 
-          bg-dark-true
-          hover:border-bismuth-secondary-400/50 
-          transition-colors duration-300
-          relative overflow-hidden;
-  }
-
-  .version-title {
-    @apply text-xl font-semibold mb-4 inline-flex items-center gap-2
-          text-bismuth-primary-300
-          hover:text-bismuth-primary-200
-          transition-colors duration-200;
   }
 }

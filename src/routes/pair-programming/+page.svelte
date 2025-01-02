@@ -2,7 +2,6 @@
   export const csr = true;
   export const ssr = false;
 
-
   import Pipeline from '$lib/components/Pipeline.svelte';
 
 	import { onMount } from 'svelte';
@@ -12,7 +11,6 @@
   import zillowLogo from '$lib/images/simple-icons_zillow.svg';
   import googleLogo from '$lib/images/uim_google.svg';
   import screen12 from '$lib/images/screen12-1.svg';
-  import pr_review from '$lib/images/pr-review.png';
   import code2 from '$lib/images/code2.svg';
   import screen from '$lib/images/screen.svg';
   import screen1 from '$lib/images/screen1.svg';
@@ -35,7 +33,7 @@
   import '$lib/vendor/css/normalize.css';
   import '$lib/vendor/css/webflow.css';
   import '$lib/vendor/css/bismuthos.webflow.css';
-  import '../app.css';
+  import '../../app.css';
 
 	interface WaitlistEntry {
 		email: string;
@@ -268,14 +266,123 @@
           <div class="column-x-large column-center w-full max-w-4xl">
             <div data-w-id="a10110f4-579f-e994-c6fa-2bb89fd4a474" style="opacity:1" class="column-large column-center text-center">
               <div class="column-regular column-center">
-                <h2 class="display-heading center text-center">Your AI colleague that catches <span class="text-span">critical issues</span> before they ship to production.</h2>
+                <h1 class="display-heading text-center">Your AI pair programmer that <span class="text-span"> ships code</span></h1>
               </div>
               <div class="max-width-regular mx-auto">
-                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth works on Python and JavaScript (TypeScript) code bases. It leaves review comments on pull requests when it finds critical bugs and provides inline suggested fixes.</p>
-            </div>		
+                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you or asynchronously to get more done.</p>
+              </div>
+
+        <div class="mx-auto max-w-md space-y-4">
+				<form on:submit|preventDefault={handleSubmit} class="flex flex-col gap-4 md:flex-row">
+					<div class="flex-1">
+						<input
+							type="email"
+							bind:value={email}
+							placeholder="Enter your email"
+							required
+							class="input-primary"
+						/>
+					</div>
 					<button type="submit" class="btn-primary whitespace-nowrap" disabled={isSubmitting}>
-            <span>Install the GitHub App!</span>
-          </button>
+						{#if isSubmitting}
+							<span class="inline-flex items-center">
+								<svg
+									class="-ml-1 mr-3 h-5 w-5 animate-spin text-white"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+								>
+									<circle
+										class="opacity-25"
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										stroke-width="4"
+									></circle>
+									<path
+										class="opacity-75"
+										fill="currentColor"
+										d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									></path>
+								</svg> Processing...
+							</span>
+						{:else}
+							Join Waitlist
+						{/if}
+					</button>
+				</form>
+				{#if success && referralData}
+					<div class="animate-fade-in mt-8 space-y-6 rounded-lg bg-dark-800/50 p-6 text-left">
+						<div>
+							<h3 class="text-xl font-semibold text-primary-400">You're on the list! Welcome aboard!</h3>
+							<p class="mt-2 text-gray-300">Share your referral link to earn rewards:</p>
+							<div class="mt-2 flex items-center gap-2">
+								<input
+									type="text"
+									readonly
+									value={`${window.location.origin}?ref=${referralData.referralCode}`}
+									class="input-primary flex-1"
+								/>
+								<button
+									class="btn-primary"
+									on:click={() => {
+										navigator.clipboard.writeText(`${window.location.origin}?ref=${referralData.referralCode}`);
+									}}
+								>
+									Copy
+								</button>
+							</div>
+						</div>
+
+						<div class="space-y-4">
+							<div class="flex items-center justify-between">
+								<span class="text-gray-300">Referral Count: {referralData.referralCount}</span>
+								{#if getNextTier(referralData.referralCount)}
+									<span class="text-primary-400">Next tier: {getNextTier(referralData.referralCount)?.count} referrals</span>
+								{:else}
+									<span class="text-primary-400">All tiers unlocked!</span>
+								{/if}
+							</div>
+							
+							<div class="h-2 overflow-hidden rounded-full bg-dark-700">
+								<div
+									class="h-full bg-primary-500 transition-all duration-500"
+									style="width: {getProgressToNextTier(referralData.referralCount)}%"
+								/>
+							</div>
+
+							<div class="grid gap-4 sm:grid-cols-3">
+								{#each tiers as tier}
+									<div class="rounded-lg bg-dark-700/50 p-4">
+										<div class="flex items-center justify-between">
+											<span class="font-medium text-gray-300">{tier.benefit}</span>
+											{#if referralData.referralCount >= tier.count}
+												<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+													<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+												</svg>
+											{:else}
+												<span class="text-sm text-gray-400">{tier.count} refs</span>
+											{/if}
+										</div>
+										<p class="mt-1 text-sm text-gray-400">{tier.description}</p>
+									</div>
+								{/each}
+							</div>
+						</div>
+					</div>
+				{:else if success}
+					<div class="animate-fade-in mt-4 font-medium text-primary-400">
+						You're on the list! Welcome aboard!
+					</div>
+				{/if}
+				{#if error}
+					<div class="animate-fade-in mt-4 font-medium text-red-400">{error}</div>
+				{/if}
+				
+
+			</div>
+            </div>		
         </div>
       </div>
       <div data-w-id="a10110f4-579f-e994-c6fa-2bb89fd4a48d" style="opacity:0" class="header-logos-wrapper">
@@ -284,48 +391,107 @@
     </div>
   </section>
   <section class="section-large-2 blue-ellypse">
-    <div class="container-large-3">
-      <div class="w-layout-grid title-grid-2 full">
-          <div class="column-regular column-left ce-ter fade column-margin">
-            <div class="badge-large blue">
-              <div>Products</div>
+      <div class="container-large-3">
+        <div class="w-layout-grid title-grid-2 full">
+            <div class="column-regular column-left ce-ter fade column-margin">
+              <div class="badge-large blue">
+                <div>Products</div>
+              </div>
+              <h3 class="h2-heading">Explore Our Other Solutions</h3>
+              <p class="paragraph-x-large text-color-gray-500 _18 center">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
             </div>
-            <h3 class="h2-heading">Explore Our Other Solutions</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18 center">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
-          </div>
+        </div>
+        <Pipeline currentStage={4} progress={[100, 100, 100, 100, 100]} currentPage="development" />
       </div>
-      <Pipeline currentStage={4} progress={[100, 100, 100, 100, 100]} currentPage="maintenance" />
-    </div>
-  </section>
+    </section>
+
 
   <section class="section-large">
     <div id="features" class="container-large-2">
-      <div class="w-layout-grid title-grid">
+      <div class="w-layout-grid title-grid mt-24">
         <div class="column-regular column-left fade">
           <div class="badge-large">
             <div>Our Benefits</div>
           </div>
-          <h3 class="h2-heading">Fix critical issues before they become a problem with an AI that understands your <span class="text-span-2">entire codebase</span></h3>
+          <h3 class="h2-heading">Clear your backlog with an AI that understands your <span class="text-span-2">entire codebase</span></h3>
         </div>
       </div>
 
       <div class="column-x-large fade">
+        <div class="div-block mt-2">
+          <div id="w-node-_062ff97b-6130-4051-4384-2b71fbe42f18-35f1b25d" class="desktop left">
+            <div id="w-node-_0cd4b5f4-bf12-0570-aca3-d185a341705e-35f1b25d" data-w-id="0cd4b5f4-bf12-0570-aca3-d185a341705e" class="arrow3back icon">
+              <div class="icon-4 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.828 12L15.778 16.95L14.364 18.364L8 12L14.364 5.63599L15.778 7.04999L10.828 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-_6d64328d-ee52-1422-06de-10b7d6a4ae67-35f1b25d" data-w-id="6d64328d-ee52-1422-06de-10b7d6a4ae67" class="arrow2back icon">
+              <div class="icon-4 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.828 12L15.778 16.95L14.364 18.364L8 12L14.364 5.63599L15.778 7.04999L10.828 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-_98962118-092f-58cd-3975-2bb2d5b72b5d-35f1b25d" data-w-id="98962118-092f-58cd-3975-2bb2d5b72b5d" class="arrow1back icon">
+              <div class="icon-4 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.828 12L15.778 16.95L14.364 18.364L8 12L14.364 5.63599L15.778 7.04999L10.828 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-b9c7b09a-0ddd-5690-fcb2-37621d93380e-35f1b25d" class="arrow0back icon">
+              <div class="icon-4 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.828 12L15.778 16.95L14.364 18.364L8 12L14.364 5.63599L15.778 7.04999L10.828 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div id="w-node-a4b54b76-18e8-4629-ba77-af461e87aa55-35f1b25d" class="div-block-2 _1"></div>
+          <div id="w-node-_7d8c146f-0f85-3a98-3815-7e5d8c800522-35f1b25d" class="div-block-2 _2"></div>
+          <div id="w-node-_9fc26a8d-7b33-12f1-1ad4-f0bf8a67d7b5-35f1b25d" class="div-block-2 _3"></div>
+          <div id="w-node-_98c095ba-f3bf-23e6-eca8-caef0a4e613d-35f1b25d" class="div-block-2 _4"></div>
+          <div id="w-node-e5cc3c18-0e2e-06de-aeae-6fe7a1bc1249-35f1b25d" class="desktop">
+            <div id="w-node-e5cc3c18-0e2e-06de-aeae-6fe7a1bc124a-35f1b25d" data-w-id="e5cc3c18-0e2e-06de-aeae-6fe7a1bc124a" class="arrow2 icon">
+              <div class="icon-5 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.1722 12L8.22217 7.04999L9.63617 5.63599L16.0002 12L9.63617 18.364L8.22217 16.95L13.1722 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-_04bfa171-b2e8-e3f7-9c0a-55f558c6c04e-35f1b25d" data-w-id="04bfa171-b2e8-e3f7-9c0a-55f558c6c04e" class="arrow3 icon">
+              <div class="icon-5 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.1722 12L8.22217 7.04999L9.63617 5.63599L16.0002 12L9.63617 18.364L8.22217 16.95L13.1722 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-_03b7da76-f3c2-4fe7-4725-1711719c3fd0-35f1b25d" data-w-id="03b7da76-f3c2-4fe7-4725-1711719c3fd0" class="arrow4 icon">
+              <div class="icon-5 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.1722 12L8.22217 7.04999L9.63617 5.63599L16.0002 12L9.63617 18.364L8.22217 16.95L13.1722 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+            <div id="w-node-b5f2b2c7-2ad0-eb90-7027-cd16b4e86549-35f1b25d" class="arrow5 icon">
+              <div class="icon-5 w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13.1722 12L8.22217 7.04999L9.63617 5.63599L16.0002 12L9.63617 18.364L8.22217 16.95L13.1722 12Z" fill="currentColor"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="slide-1">
           <div class="div-block-4 left">
             <div class="div-block-5">
-              <h3 class="h3">Catch issues before they're merged.</h3>
-              <p class="paragraph-x-large text-color-gray-500 _18">Bismuth can leave comments for critical issues with suggested fixes as they review your pull request.</p>
+              <h3 class="h3">Works alongside you or independently</h3>
+              <p class="paragraph-x-large text-color-gray-500 _18">Pair program with Bismuth in your terminal or let it work on tasks while you focus on other priorities. It learns your patterns and maintains code consistency.</p>
             </div>
             <a href="#how-it-works" class="button-primary-large w-inline-block">
               <div>Learn more</div>
             </a>
-          </div><div class="!overflow-hidden !max-w-full"><img src={pr_review} loading="eager" alt="" class="image-2 !max-w-full !w-auto !object-contain"></div>
+          </div><div class="!overflow-hidden !max-w-full"><img src={screen12} loading="eager" alt="" class="image-2 !max-w-full !w-auto !object-contain"></div>
         </div>
         <div class="slide-2">
           <div class="div-block-4 left">
             <div class="div-block-5">
-              <h3 class="h3">Works around the clock.</h3>
-              <p class="paragraph-x-large text-color-gray-500 _18">Bismuth periodically scans your code base for issues that are live in production. We then open pull requests that outline the issue and provide a fix.</p>
+              <h3 class="h3">Understands your entire codebase</h3>
+              <p class="paragraph-x-large text-color-gray-500 _18">Bismuth analyzes your project structure, dependencies, and coding patterns to write code that fits seamlessly with your existing work.</p>
             </div>
           </div><div class="!overflow-hidden !max-w-full"><img src={code2} loading="eager" alt="" class="image-2 _2 !max-w-full !w-auto !object-contain"></div>
         </div>
@@ -337,6 +503,14 @@
             </div>
           </div><div class="!overflow-hidden !max-w-full"><img src={screen} loading="eager" alt="" class="image-2 !max-w-full !w-auto !object-contain"></div>
         </div>
+        <div class="slide-4">
+          <div class="div-block-4 left">
+            <div class="div-block-5">
+              <h3 class="h3">Intelligent Problem Resolution</h3>
+              <p class="paragraph-x-large text-color-gray-500 _18">Automatically identify and suggest fixes for complex bugs across your codebase. Bismuth helps you tackle technical debt by providing context-aware code improvements directly in your terminal.</p>
+            </div>
+          </div><div class="!overflow-hidden !max-w-full"><img src={screen1} loading="eager" alt="" class="image-2 !max-w-full !w-auto !object-contain"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -347,28 +521,28 @@
           <div class="badge-large blue">
             <div>Technical Capabilities</div>
           </div>
-          <h3 class="h2-heading">Bug fixing, quality, and security go hand in hand.</h3>
-          <p class="paragraph-x-large text-color-gray-500 _18">Bismuth acts as a second line of defense against bugs that can cause financial harm and reputational damage. We reduce the time your developers spend fixing bugs and let them keep their focus on features.</p>
+          <h3 class="h2-heading"><span class="text-span-3">Ship More</span> With Less Effort</h3>
+          <p class="paragraph-x-large text-color-gray-500 _18">Let Bismuth handle your backlog while you focus on high-priority tasks. From feature development to bug fixes, our AI agent works efficiently in your codebase to help you ship more code.</p>
         </div>
       </div>
       <div class="column-x-large-2 fade">
         <div class="sticky-1">
           <div class="align-hor bottom vett">
-            <h3 class="bigtitle">Bismuth goes beyond security critical bugs.</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18">Bismuth not only detects bugs that effect scurity which can have direct financial implications, but also unintended logic bugs which could cause reputational harm and slow development.</p>
+            <h3 class="bigtitle">You need to clear your backlog.</h3>
+            <p class="paragraph-x-large text-color-gray-500 _18">Bismuth works on multiple tasks in parallel, helping you tackle that growing list of features and fixes that keep getting deprioritized.</p>
           </div>
         </div>
         <div class="sticky-2">
           <img src="" loading="lazy" alt="" class="abs-image">
           <div class="align-hor bottom vett">
-            <h3 class="bigtitle">Bismuth works on your entire codebase.</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18 white">Bismuth analyzes your entire codebase when checking pull requests so we can detect issues surrounding changes not just the changes themselves.</p>
+            <h3 class="bigtitle">You need code that fits.</h3>
+            <p class="paragraph-x-large text-color-gray-500 _18 white">Bismuth analyzes your entire codebase to understand patterns and architecture, ensuring new code maintains your project's standards and style.</p>
           </div>
         </div>
         <div class="sticky-3">
           <div class="align-hor bottom vett">
             <h3 class="bigtitle">You stay in control.</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18 white">Review and approve all changes before they're committed. Bismuth creates clean, atomic commits as part of pull requests with detailed messages explaining what changed and why.</p>
+            <p class="paragraph-x-large text-color-gray-500 _18 white">Review and approve all changes before they're committed. Bismuth creates clean, atomic commits with detailed messages explaining what changed and why.</p>
           </div>
         </div>
       </div>
@@ -379,31 +553,40 @@
       <div class="w-layout-grid title-grid-2 full">
         <div class="column-regular column-left ce-ter fade column-margin">
           <div class="badge-large blue">
-            <div>Integrated Into Common Workflows</div>
+            <div>Advanced AI Development</div>
           </div>
-          <h3 class="h2-heading">Bismuth works directly on GitHub, it can review pull requests and open it's own just like any one on your team.</h3>
+          <h3 class="h2-heading">Intelligent Code Transformation: <br><span class="text-span-4">Beyond Traditional Development</span></h3>
         </div>
         <div id="w-node-_934e175f-e164-777b-9304-d22acf947b7e-35f1b25d" class="div-block-6"></div>
       </div>
       <div class="column-x-large-2 grid fade">
         <div id="w-node-ecbfbf86-70fd-9865-c400-8097f97e6ce7-35f1b25d" class="card-ai-1"><img src={icon} loading="lazy" alt="" class="image-4">
           <div class="div-block-5">
-            <h3 class="h3">Reviews</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18">Bismuth only steps in to comment on a review if there are clear logical or security concerns given the context of the work.</p>
+            <h3 class="h3">Seamless Version Control Integration</h3>
+            <p class="paragraph-x-large text-color-gray-500 _18">Advanced Git integration that understands your project's context. Propose commits directly to the repository with intelligent, context-aware recommendations.</p>
           </div>
         </div>
         <div id="w-node-bffdd33a-40ae-c482-4205-076bc6396025-35f1b25d" class="card-ai-1"><img src={icon1} loading="lazy" alt="" class="image-4">
           <div class="div-block-5">
-            <h3 class="h3">Scans</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18">Bismuth is always checking your code base for new issues and will open pull requests to fix them when it finds them.</p>
+            <h3 class="h3">Autonomous Code Refinement</h3>
+            <p class="paragraph-x-large text-color-gray-500 _18">Leveraging state-of-the-art machine learning to analyze, validate, and self-correct code. Provides transparent feedback and ensures high-quality, reliable code generation.</p>
           </div>
         </div>
         <div id="w-node-_8e961abb-3a04-9292-5f7b-60640b3cdded-35f1b25d" class="card-ai-1"><img src={icon2} loading="lazy" alt="" class="image-4">
           <div class="div-block-5">
-            <h3 class="h3">Communicates</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18">Add Bismuth to slack and it will let you know it's found something you should take a look at.</p>
+            <h3 class="h3">Intelligent Issue Resolution</h3>
+            <p class="paragraph-x-large text-color-gray-500 _18">Advanced AI-powered issue tracking and resolution. Automatically diagnose, implement, and resolve complex development challenges with unprecedented precision.</p>
           </div>
         </div>
+      </div>
+      <div class="div-block-7 fade"><img src={codeGit} loading="lazy" alt="">
+        <a id="copyBtn" href="#" class="button-primary-large copy-code hide w-inline-block">
+          <div>Explore AI Capabilities</div>
+          <div class="icon w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 6V3C7 2.73478 7.10536 2.48043 7.29289 2.29289C7.48043 2.10536 7.73478 2 8 2H20C20.2652 2 20.5196 2.10536 20.7071 2.29289C20.8946 2.48043 21 2.73478 21 3V17C21 17.2652 20.8946 17.5196 20.7071 17.7071C20.5196 17.8946 20.2652 18 20 18H17V21C17 21.552 16.55 22 15.993 22H4.007C3.87513 22.0008 3.7444 21.9755 3.62232 21.9256C3.50025 21.8757 3.38923 21.8022 3.29566 21.7093C3.20208 21.6164 3.12779 21.5059 3.07705 21.3841C3.02632 21.2624 3.00013 21.1319 3 21L3.003 7C3.003 6.448 3.453 6 4.01 6H7ZM5.003 8L5 20H15V8H5.003ZM9 6H17V16H19V4H9V6Z" fill="currentColor"></path>
+            </svg>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -415,7 +598,7 @@
             <div>Technical Workflow</div>
           </div>
           <h3 class="h2-heading">How It Works</h3>
-          <p class="paragraph-x-large text-color-gray-500 _18 center">Bismuth is quick to install and get started with, just follow the steps below.</p>
+          <p class="paragraph-x-large text-color-gray-500 _18 center">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
         </div>
         <div id="w-node-_5dbc5ae6-dfc4-c4d6-f9d9-044fdca440d7-35f1b25d" class="div-block-6"></div>
       </div>
@@ -431,12 +614,14 @@
         </div>
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749ed-35f1b25d" class="process-content fade">
           <div class="column-x-small">
-            <h6 class="h3"><span class="text-span-5">Install</span> the Bismuth GitHub app and give it permissions.</h6>
+            <h6 class="h3"><span class="text-span-5">Seamless CLI Integration</span> for project initialization and management.</h6>
           </div>
           <div class="button-group">
             <a id="copyBtn1" href="#" class="button-secondary-large w-inline-block">
-              <div class="text-block">Install</div>
-              <div class="icon w-embed"><img src={icon} loading="lazy" alt="" class="image-4">
+              <div class="text-block">View CLI Guide</div>
+              <div class="icon w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 6V3C7 2.73478 7.10536 2.48043 7.29289 2.29289C7.48043 2.10536 7.73478 2 8 2H20C20.2652 2 20.5196 2.10536 20.7071 2.29289C20.8946 2.48043 21 2.73478 21 3V17C21 17.2652 20.8946 17.5196 20.7071 17.7071C20.5196 17.8946 20.2652 18 20 18H17V21C17 21.552 16.55 22 15.993 22H4.007C3.87513 22.0008 3.7444 21.9755 3.62232 21.9256C3.50025 21.8757 3.38923 21.8022 3.29566 21.7093C3.20208 21.6164 3.12779 21.5059 3.07705 21.3841C3.02632 21.2624 3.00013 21.1319 3 21L3.003 7C3.003 6.448 3.453 6 4.01 6H7ZM5.003 8L5 20H15V8H5.003ZM9 6H17V16H19V4H9V6Z" fill="currentColor"></path>
+                </svg>
               </div>
             </a>
           </div>
@@ -445,7 +630,7 @@
       <div class="w-layout-grid process-grid">
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749f9-35f1b25d" class="process-content fade">
           <div class="column-x-small">
-            <h6 class="h3"><span class="text-span-6">Open</span> a pull request.</h6>
+            <h6 class="h3"><span class="text-span-6">Advanced Feature Engineering</span> with autonomous planning, implementation, and validation.</h6>
           </div>
         </div>
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a01-35f1b25d" class="process-line-wrapper">
@@ -466,7 +651,7 @@
         </div>
         <div id="w-node-_4cc89224-c561-311d-b795-bfa001a2a812-35f1b25d" class="process-content">
           <div class="column-x-small">
-            <h6 class="h3"><span class="text-span-7">Review</span> and accept the changes if Bismuth finds an issue.</h6>
+            <h6 class="h3"><span class="text-span-7">Intelligent Code Context Analysis</span> using advanced AI to understand project structure and dependencies.</h6>
           </div>
           <div class="button-group">
             <a data-w-id="4cc89224-c561-311d-b795-bfa001a2a817" href="#" class="button-secondary-large w-inline-block">
@@ -482,7 +667,7 @@
       <div class="w-layout-grid process-grid">
         <div id="w-node-_62b429d7-ffb5-9bdb-249e-370f57597ea2-35f1b25d" class="process-content fade">
           <div class="column-x-small">
-            <h6 class="h3"><span class="text-span-7">Accept</span> pull requests for issues Bismuth finds while scanning your code base.</h6>
+            <h6 class="h3">Automated Code Generation and Refinement</h6>
           </div>
           <div class="button-group">
             <a id="copyBtn2" href="#" class="button-secondary-large w-inline-block">
@@ -512,7 +697,7 @@
         </div>
         <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f024245064-35f1b25d" class="process-content fade">
           <div class="column-x-small">
-            <h6 class="h3">Checkout other ways Bismuth can help you.</h6>
+            <h6 class="h3">Continuous Learning and Code Improvement</h6>
           </div>
         </div>
       </div>
@@ -526,52 +711,150 @@
           <div class="badge-large blue">
             <div>Pricing</div>
           </div>
-          <h3 class="h2-heading">A Plan for Every Development Team</h3>
-          <p class="paragraph-x-large text-color-gray-500 _18 center"></p>
+          <h3 class="h2-heading">Flexible Plans for Every Development Team</h3>
+          <p class="paragraph-x-large text-color-gray-500 _18 center">Scale your AI development capabilities with precision and control.</p>
         </div>
       </div>
       <div class="pricing-grid">
         <div class="pricing-tier">
-          <h1 class="pricing-header">Free</h1>
+          <h4>Pay as you go</h4>
+          <p>Perfect for individual developers and small projects</p>
           <ul class="pricing-features">
-            <li>5 reviews / month</li>
+            <li>Basic AI code generation</li>
+            <li>Single project support</li>
+            <li>Community support</li>
           </ul>
-          <span class="price">
-            $0 / mo
-          </span>
         </div>
         <div class="pricing-tier">
-          <h1 class="pricing-header">Standard</h1>
+          <h4>Pro</h4>
+          <p>Ideal for growing teams and more complex projects</p>
           <ul class="pricing-features">
-            <li>50 reviews / month</li>
-            <li>10 scans / month</li>
+            <li>Advanced AI features</li>
+            <li>Multi-project support</li>
+            <li>Priority support</li>
           </ul>
-          <span class="price">
-            $49 / mo
-          </span>
         </div>
         <div class="pricing-tier">
-          <h1 class="pricing-header">Pro</h1>
+          <h4>Pro Plus</h4>
+          <p>For teams requiring advanced capabilities</p>
           <ul class="pricing-features">
-            <li>100 scans / month</li>
-            <li>Unlimitted Reviews</li>
-            <li>Slack Integration</li>
+            <li>Enterprise-grade AI</li>
+            <li>Unlimited project contexts</li>
+            <li>Dedicated support</li>
           </ul>
-          <span class="price">
-            $249 / mo
-          </span>
         </div>
         <div class="pricing-tier">
-          <h1 class="pricing-header">Enterprise</h1>
+          <h4>Team</h4>
+          <p>Comprehensive solution for large organizations</p>
           <ul class="pricing-features">
-            <li>Unlimitted Scans</li>
-            <li>Unlimitted Reviews</li>
-            <li>Custom Integrations</li>
-            <li>SSO and Compliance</li>
+            <li>Full AI suite</li>
+            <li>Advanced code generation</li>
+            <li>24/7 enterprise support</li>
           </ul>
-          <span class="price">
-            Contact Us
-          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="testimonial" class="section-large-2">
+    <div class="container-large-3">
+      <div class="w-layout-grid title-grid-2 full">
+        <div class="column-regular column-left ce-ter fade column-margin">
+          <div class="badge-large white">
+            <div>Testimonials</div>
+          </div>
+          <h3 class="h2-heading maxw">What Developers Are Saying</h3>
+        </div>
+      </div>
+      <div class="w-layout-grid grid-two-column fade">
+        <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48ad-35f1b25d" class="testimonial-card">
+          <div class="column-x-large-3 column-left">
+            <div class="testimonial-avatar"><img loading="lazy" src={testimonial1} alt="" class="image-cover"></div>
+            <div>
+              <div class="h4-heading text-color-gray-800">"</div>
+              <h5 class="h4-heading text-color-gray-300">It's so nice being able to sit down for a couple hours and tear through a backlog of projects</h5>
+            </div>
+          </div>
+          <div class="column-tiny-3">
+            <div class="subheading-large">Kyle Martin</div>
+            <p class="paragraph-small text-color-gray-600">Engineer - Vector 35</p>
+          </div>
+        </div>
+        <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48bb-35f1b25d" class="column-large">
+          <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48bc-35f1b25d" class="testimonial-card-small">
+            <div class="column-x-large-3 column-left">
+              <div>
+                <div class="h4-heading text-color-gray-800">"</div>
+                <div class="h6-heading-2 text-color-gray-300">Helping you to protect all your digital activity and data.</div>
+              </div>
+            </div>
+            <div class="row-small">
+              <div class="testimonial-avatar-small"><img loading="lazy" src={testimonial2} alt="" class="image-cover"></div>
+              <div class="column-tiny-3">
+                <div class="subheading-large">Andrew Power</div>
+                <p class="paragraph-small text-color-gray-600">Software Developer @ mangoku.co</p>
+              </div>
+            </div>
+          </div>
+          <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48cb-35f1b25d" class="testimonial-card-small">
+            <div class="column-x-large-3 column-left">
+              <div>
+                <div class="h4-heading text-color-gray-800">"</div>
+                <div class="h6-heading-2 text-color-gray-300">Safe to say my digital footprint secured and protected.</div>
+              </div>
+            </div>
+            <div class="row-small">
+              <div class="testimonial-avatar-small"><img loading="lazy" src={testimonial3} alt="" class="image-cover"></div>
+              <div class="column-tiny-3">
+                <div class="subheading-large">Daria Pimkina</div>
+                <p class="paragraph-small text-color-gray-600">Software Engineer @ spimk.io</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48da-35f1b25d" class="column-large">
+          <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48db-35f1b25d" class="testimonial-card-small">
+            <div class="column-x-large-3 column-left">
+              <div>
+                <div class="h4-heading text-color-gray-800">"</div>
+                <div class="h6-heading-2 text-color-gray-300">The best Data-breached security system by far.</div>
+              </div>
+            </div>
+            <div class="row-small">
+              <div class="testimonial-avatar-small"><img loading="lazy" src={testimonial4} alt="" class="image-cover"></div>
+              <div class="column-tiny-3">
+                <div class="subheading-large">Alesha Sienna</div>
+                <p class="paragraph-small text-color-gray-600">Project Manager @ neworld.com</p>
+              </div>
+            </div>
+          </div>
+          <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48ea-35f1b25d" class="testimonial-card-small">
+            <div class="column-x-large-3 column-left">
+              <div>
+                <div class="h4-heading text-color-gray-800">"</div>
+                <div class="h6-heading-2 text-color-gray-300">Realtime auto-detect threats from an unwanted third-party.</div>
+              </div>
+            </div>
+            <div class="row-small">
+              <div class="testimonial-avatar-small"><img loading="lazy" src={testimonial5} alt="" class="image-cover"></div>
+              <div class="column-tiny-3">
+                <div class="subheading-large">Bryan Fury</div>
+                <p class="paragraph-small text-color-gray-600">CEO &amp; Founder @ itsmyvault.co</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="w-node-_070fbda4-0e86-b6d9-449f-02add22f48f9-35f1b25d" class="testimonial-card">
+          <div class="column-x-large-3 column-left">
+            <div class="testimonial-avatar"><img loading="lazy" src={testimonial6} alt="" class="image-cover"></div>
+            <div>
+              <div class="h4-heading text-color-gray-800">"</div>
+              <h6 class="h4-heading text-color-gray-300">The safest tools for the digital world.</h6>
+            </div>
+          </div>
+          <div class="column-tiny-3">
+            <div class="subheading-large">John Blaze</div>
+            <p class="paragraph-small text-color-gray-600">Security Analyst @ lockeat.com</p>
+          </div>
         </div>
       </div>
     </div>
