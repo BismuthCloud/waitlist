@@ -5,9 +5,6 @@
 
   import Pipeline from '$lib/components/Pipeline.svelte';  
   import GitHubMockUp from '$lib/components/GitHubMockUp.svelte';
-  import Callgraph from '$lib/components/Callgraph.svelte';
-  import Terminal from '$lib/components/Terminal.svelte';
-  import Chat from '$lib/components/Chat.svelte';
   import AnimatedBackgroundWrapper from '$lib/components/AnimatedBackgroundWrapper.svelte';
   import ContactForm from '$lib/components/ContactForm.svelte';
   import ImageContainer from '$lib/components/ImageContainer.svelte';
@@ -19,26 +16,12 @@
   import amazonLogo from '$lib/images/ant-design_amazon-square-filled.svg';
   import zillowLogo from '$lib/images/simple-icons_zillow.svg';
   import googleLogo from '$lib/images/uim_google.svg';
-  import screen12 from '$lib/images/screen12-1.svg';
   import pr_review from '$lib/images/pr-review.png';
   import code2 from '$lib/images/code2.svg';
   import screen from '$lib/images/screen.svg';
-  import screen1 from '$lib/images/screen1.svg';
-  // import codeGeneration from '$lib/images/code-generation.svg';
   import icon from '$lib/images/icon.svg';
   import icon1 from '$lib/images/icon-1.svg';
   import icon2 from '$lib/images/icon-2.svg';
-  import codeGit from '$lib/images/code-git.svg';
-  import timeline1 from '$lib/images/timeline1.svg';
-  import feature from '$lib/images/feature.svg';
-  import timeline3 from '$lib/images/timeline3.svg';
-  import timeline4 from '$lib/images/timeline4.svg';
-  import testimonial1 from '$lib/images/kyle_martin.jpg';
-  import testimonial2 from '$lib/images/Testimonial-Avatar-06_1Testimonial-Avatar-06.png';
-  import testimonial3 from '$lib/images/Testimonial-Avatar-05_1Testimonial-Avatar-05.png';
-  import testimonial4 from '$lib/images/Testimonial-Avatar-04_1Testimonial-Avatar-04.png';
-  import testimonial5 from '$lib/images/Testimonial-Avatar-03_1Testimonial-Avatar-03.png';
-  import testimonial6 from '$lib/images/Testimonial-Avatar-02.png';
   import installScreen from '$lib/images/install_screen.png';
   import openPR from '$lib/images/open_pr.png';
   import createPR from '$lib/images/create_pr.png';

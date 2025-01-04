@@ -4,8 +4,19 @@
       content: string;
       authorColor?: string;
     };
+
+    import { Copy } from 'lucide-svelte';
   
     export let messages: Message[];
+    export let copyable: boolean = false;
+
+    let copied = false;
+
+    function copyContent(content: string) {
+        navigator.clipboard.writeText(content);
+        copied = true;
+        setTimeout(() => copied = false, 1000); // Reset after 1 second
+    }
   </script>
   
   <div class="w-full max-w-2xl rounded-lg overflow-hidden bg-[#11092c] shadow-lg border border-neutral-dark/20">
@@ -24,7 +35,18 @@
           </span>
           <div class="text-neutral font-mono pl-4">
             {message.content}
-          </div>
+
+          </div>        
+
+            <button 
+              class=" p-2 rounded-lg bg-dark-800/50 hover:bg-dark-800 
+                      text-neutral-dark hover:text-neutral transition-all duration-200
+                      {copied ? 'bg-accent-purple text-white scale-110 rotate-12' : ''}"
+              on:click={() => copyContent(message.content)}
+              title="Copy to clipboard"
+            >
+              <Copy class="w-4 h-4 {copied ? 'animate-ping' : ''}" />
+            </button> 
         </div>
       {/each}
     </div>
