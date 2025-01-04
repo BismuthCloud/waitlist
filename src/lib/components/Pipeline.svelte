@@ -62,7 +62,7 @@
       progressColor: 'bg-bismuth-primary-300',
       interactive: true,
       isProduct: true,
-      href: '/',
+      href: '/maintenance',
       id: 'maintenance'
       }
   ];
@@ -75,7 +75,7 @@
 </script>
 
 <div class="w-full max-w-6xl mx-auto py-12 px-4">
-  <div class="relative ml-[30px] sm:ml-[65px] ml-1/2 flex flex-col">
+  <div class="relative ml-1/2 flex flex-col">
     
     <div class="relative grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
     <div class="absolute top-[6rem] left-0 w-full h-[2px] bg-neutral-dark/20 -translate-y-1/2 hidden md:block"/>
