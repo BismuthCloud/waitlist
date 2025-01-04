@@ -3,7 +3,15 @@
   export const ssr = false;
 
 
-  import Pipeline from '$lib/components/Pipeline.svelte';
+  import Pipeline from '$lib/components/Pipeline.svelte';  
+  import GitHubMockUp from '$lib/components/GitHubMockUp.svelte';
+  import Callgraph from '$lib/components/Callgraph.svelte';
+  import Terminal from '$lib/components/Terminal.svelte';
+  import Chat from '$lib/components/Chat.svelte';
+  import AnimatedBackgroundWrapper from '$lib/components/AnimatedBackgroundWrapper.svelte';
+  import ContactForm from '$lib/components/ContactForm.svelte';
+  import ImageContainer from '$lib/components/ImageContainer.svelte';
+  import ProgrammingButton from '$lib/components/ProgrammingButton.svelte';
 
 	import { onMount } from 'svelte';
 	import confetti from 'canvas-confetti';
@@ -31,6 +39,9 @@
   import testimonial4 from '$lib/images/Testimonial-Avatar-04_1Testimonial-Avatar-04.png';
   import testimonial5 from '$lib/images/Testimonial-Avatar-03_1Testimonial-Avatar-03.png';
   import testimonial6 from '$lib/images/Testimonial-Avatar-02.png';
+  import installScreen from '$lib/images/install_screen.png';
+  import openPR from '$lib/images/open_pr.png';
+  import createPR from '$lib/images/create_pr.png';
 
   import '$lib/vendor/css/normalize.css';
   import '$lib/vendor/css/webflow.css';
@@ -190,41 +201,6 @@
 		fire(0.1, { spread: 120, startVelocity: 45, colors: ['#ec4899', '#c084fc', '#f472b6'] });
 	};
 
-	const handleSubmit = async () => {
-		isSubmitting = true;
-		error = null;
-		success = false;
-		try {
-			const response = await fetch('/api/waitlist', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ 
-					email,
-					referralCode: referralUrl 
-				})
-			});
-			const data = await response.json() as WaitlistResponse;
-			if (!response.ok) {
-				// Handle "email already registered" case by showing their stats
-				if (data.stats) {
-					success = true;
-					referralData = data.stats;
-					email = '';
-				} else {
-					throw new Error(data.error || 'Failed to submit');
-				}
-			} else {
-				success = true;
-				referralData = data.entry;
-				email = '';
-				fireConfetti();
-			}
-		} catch (e) {
-			error = e instanceof Error ? e.message : 'Something went wrong';
-		} finally {
-			isSubmitting = false;
-		}
-	};
 </script>
   <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
     <div class="container-large !max-w-full !overflow-x-hidden">
@@ -261,28 +237,32 @@
       </div>
     </div>
   </div>
+  <AnimatedBackgroundWrapper>
   <section class="section-regular !max-w-full !overflow-x-hidden">
     <div class="container-large !mx-auto !px-4">
-      <div id="w-node-a10110f4-579f-e994-c6fa-2bb89fd4a471-35f1b25d" class="container-small w-full">
+      <div  class="container-small w-full">
         <div class="text-align-center flex flex-col items-center justify-center">
           <div class="column-x-large column-center w-full max-w-4xl">
-            <div data-w-id="a10110f4-579f-e994-c6fa-2bb89fd4a474" style="opacity:1" class="column-large column-center text-center">
+            <div  style="opacity:1" class="column-large column-center text-center">
               <div class="column-regular column-center">
-                <h2 class="display-heading center text-center">Your AI colleague that catches <span class="text-span">critical issues</span> before they ship to production.</h2>
+                <h2 class="display-heading center text-center">Your AI colleague that catches <span class="text-span">critical issues</span> before they ship.</h2>
               </div>
               <div class="max-width-regular mx-auto">
-                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth works on Python and JavaScript (TypeScript) code bases. It leaves review comments on pull requests when it finds critical bugs and provides inline suggested fixes.</p>
+                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth works on Python and JavaScript (TypeScript) code bases. It periodically scans your code base and autonomously finds and fixes bugs. It also leaves review comments on pull requests when it finds critical bugs and then provides inline suggested fixes.</p>
             </div>		
-					<button type="submit" class="btn-primary whitespace-nowrap" disabled={isSubmitting}>
-            <span>Install the GitHub App!</span>
-          </button>
         </div>
       </div>
-      <div data-w-id="a10110f4-579f-e994-c6fa-2bb89fd4a48d" style="opacity:0" class="header-logos-wrapper">
-        <div class="header-logo-row !flex !justify-center !space-x-4"><img src={amazonLogo} loading="lazy" alt="" class="logoheader"><img src={zillowLogo} loading="lazy" alt="" class="logoheader"><img src={googleLogo} loading="lazy" alt="" class="logoheader"></div>
-      </div>
+
+    <GitHubMockUp />
+					<a href="https://github.com/apps/bismuthdev" class="btn-primary whitespace-nowrap mt-16">
+            <span>Install the GitHub App</span>
+          </a>
+    </div>
+    <div  style="opacity:1" class="header-logos-wrapper">
+      <div class="header-logo-row !flex !justify-center !space-x-4"><img src={amazonLogo} loading="lazy" alt="" class="logoheader"><img src={zillowLogo} loading="lazy" alt="" class="logoheader"><img src={googleLogo} loading="lazy" alt="" class="logoheader"></div>
     </div>
   </section>
+  </AnimatedBackgroundWrapper>
   <section class="section-large-2 blue-ellypse">
     <div class="container-large-3">
       <div class="w-layout-grid title-grid-2 full">
@@ -300,7 +280,7 @@
 
   <section class="section-large">
     <div id="features" class="container-large-2">
-      <div class="w-layout-grid title-grid">
+      <div class="w-layout-grid title-grid mt-24">
         <div class="column-regular column-left fade">
           <div class="badge-large">
             <div>Our Benefits</div>
@@ -422,7 +402,9 @@
 
     <div class="process-wrapper">
       <div class="w-layout-grid process-grid">
-        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749e6-35f1b25d" class="process-image-wrapper fade"><img loading="lazy" src={timeline1} alt="" class="process-image"></div>
+        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749e6-35f1b25d" class="process-image-wrapper fade">
+            <ImageContainer src={installScreen} />
+        </div>
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749e8-35f1b25d" class="process-line-wrapper">
           <div class="process-line first"></div>
           <div class="process-number">
@@ -434,7 +416,7 @@
             <h6 class="h3"><span class="text-span-5">Install</span> the Bismuth GitHub app and give it permissions.</h6>
           </div>
           <div class="button-group">
-            <a id="copyBtn1" href="#" class="button-secondary-large w-inline-block">
+            <a id="copyBtn1" href="https://github.com/apps/bismuthdev" class="button-secondary-large w-inline-block">
               <div class="text-block">Install</div>
               <div class="icon w-embed"><img src={icon} loading="lazy" alt="" class="image-4">
               </div>
@@ -443,7 +425,7 @@
         </div>
       </div>
       <div class="w-layout-grid process-grid">
-        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749f9-35f1b25d" class="process-content fade">
+        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca749f9-35f1b25d" class="process-content-end fade">
           <div class="column-x-small">
             <h6 class="h3"><span class="text-span-6">Open</span> a pull request.</h6>
           </div>
@@ -454,10 +436,14 @@
             <div>2</div>
           </div>
         </div>
-        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a06-35f1b25d" class="process-image-wrapper fade"><img loading="lazy" src={feature} alt="" class="process-image"></div>
+        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a06-35f1b25d" class="process-image-wrapper fade">
+          <ImageContainer src={createPR} />
+          </div>
       </div>
       <div class="w-layout-grid process-grid">
-        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a09-35f1b25d" class="process-image-wrapper"><img loading="lazy" src={timeline3} alt="" class="process-image"></div>
+        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a09-35f1b25d" class="process-image-wrapper">
+          <ImageContainer src={pr_review} />
+          </div>
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a0b-35f1b25d" class="process-line-wrapper">
           <div class="process-line"></div>
           <div class="process-number">
@@ -468,30 +454,12 @@
           <div class="column-x-small">
             <h6 class="h3"><span class="text-span-7">Review</span> and accept the changes if Bismuth finds an issue.</h6>
           </div>
-          <div class="button-group">
-            <a data-w-id="4cc89224-c561-311d-b795-bfa001a2a817" href="#" class="button-secondary-large w-inline-block">
-              <div class="text-block">Explore AI Capabilities</div>
-              <div class="icon w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="currentColor"></path>
-                </svg>
-              </div>
-            </a>
-          </div>
         </div>
       </div>
       <div class="w-layout-grid process-grid">
         <div id="w-node-_62b429d7-ffb5-9bdb-249e-370f57597ea2-35f1b25d" class="process-content fade">
           <div class="column-x-small">
             <h6 class="h3"><span class="text-span-7">Accept</span> pull requests for issues Bismuth finds while scanning your code base.</h6>
-          </div>
-          <div class="button-group">
-            <a id="copyBtn2" href="#" class="button-secondary-large w-inline-block">
-              <div class="text-block">View Code Generation Guide</div>
-              <div class="icon w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" fill="currentColor"></path>
-                </svg>
-              </div>
-            </a>
           </div>
         </div>
         <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a24-35f1b25d" class="process-line-wrapper">
@@ -500,26 +468,24 @@
             <div>4</div>
           </div>
         </div>
-        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a29-35f1b25d" class="process-image-wrapper fade"><img loading="lazy" src={timeline4} alt="" class="process-image"></div>
+        <div id="w-node-_14735d2d-4038-f439-be0b-22b20ca74a29-35f1b25d" class="process-image-wrapper fade">
+          <ImageContainer src={openPR} />
+        </div>
       </div>
       <div class="w-layout-grid process-grid">
-        <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f02424505d-35f1b25d" class="process-image-wrapper fade"><img loading="lazy" src={timeline3} alt="" class="process-image"></div>
+        <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f02424505d-35f1b25d" class="process-image-wrapper fade">
+        </div>
         <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f02424505f-35f1b25d" class="process-line-wrapper">
           <div class="process-line first end"></div>
-          <div class="process-number">
-            <div>5</div>
           </div>
         </div>
         <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f024245064-35f1b25d" class="process-content fade">
-          <div class="column-x-small">
-            <h6 class="h3">Checkout other ways Bismuth can help you.</h6>
-          </div>
         </div>
       </div>
     </div>
-    </div>
+          <ProgrammingButton href={"/pair-programming"}/>
   </section>
-  <section id="pricing" class="section-large pricing-section">
+  <section id="pricing" class="section-large pricing-section pt-2">
     <div class="container-large-3">
       <div class="w-layout-grid title-grid-2 full">
         <div class="column-regular column-left ce-ter fade column-margin">
@@ -533,48 +499,58 @@
       <div class="pricing-grid">
         <div class="pricing-tier">
           <h1 class="pricing-header">Free</h1>
-          <ul class="pricing-features">
-            <li>5 reviews / month</li>
-          </ul>
           <span class="price">
             $0 / mo
           </span>
+          <ul class="pricing-features">
+            <li>5 reviews / month</li>
+          </ul>
+          <br />
+          <br />
+          <br />
+          <br />
+					<a href="https://github.com/apps/bismuthdev" class="btn-primary whitespace-nowrap mt-12">
+            <span>Install the GitHub App</span>
+          </a>
         </div>
         <div class="pricing-tier">
           <h1 class="pricing-header">Standard</h1>
+          <span class="price">
+            $49 / mo
+          </span>
           <ul class="pricing-features">
             <li>50 reviews / month</li>
             <li>10 scans / month</li>
           </ul>
-          <span class="price">
-            $49 / mo
-          </span>
         </div>
         <div class="pricing-tier">
           <h1 class="pricing-header">Pro</h1>
+          <span class="price">
+            $249 / mo
+          </span>
           <ul class="pricing-features">
             <li>100 scans / month</li>
             <li>Unlimitted Reviews</li>
             <li>Slack Integration</li>
           </ul>
-          <span class="price">
-            $249 / mo
-          </span>
         </div>
         <div class="pricing-tier">
           <h1 class="pricing-header">Enterprise</h1>
+          <span class="price">
+            Contact Us
+          </span>
           <ul class="pricing-features">
             <li>Unlimitted Scans</li>
             <li>Unlimitted Reviews</li>
             <li>Custom Integrations</li>
             <li>SSO and Compliance</li>
           </ul>
-          <span class="price">
-            Contact Us
-          </span>
+          <ContactForm transparent={true} subject="Bug Fixing Product Contact Form"/>
         </div>
       </div>
     </div>
+  </section>
+  <section class="section-large-2">
   </section>
   <section class="footer">
     <div class="container-large-3">
@@ -585,12 +561,10 @@
             <p class="paragraph-x-large text-color-gray-500 cemter">Focus on your code, not the setup. Our AI-powered agent handle the rest.</p>
           </div>
           <div class="div-block-8">
-            <a href="#" class="button-secondary-large w-inline-block">
-              <div>Try Bismuth for free</div>
+            <a href="https://github.com/apps/bismuthdev" class="button-secondary-large w-inline-block">
+              <div>Install the GitHub App</div>
             </a>
-            <a data-w-id="e4cbed68-f0e8-381b-2434-e96de23fab88" href="#" class="button-primary-large w-inline-block">
-              <div>Contact us</div>
-            </a>
+            <ContactForm transparent={true} subject="Bug Fixing Product Contact Form"/>
           </div>
         </div>
         <div class="div-block-9">
@@ -627,34 +601,4 @@
         </svg>
       </div>
     </a>
-  </div>
-  <div class="contact">
-    <a data-w-id="e6ce9b8b-e681-e523-b561-33c8d49ee012" href="#" class="button-primary-large copy-code round w-inline-block">
-      <div class="icon w-embed"><svg width="420" height="420" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.0002 10.586L16.9502 5.63599L18.3642 7.04999L13.4142 12L18.3642 16.95L16.9502 18.364L12.0002 13.414L7.05023 18.364L5.63623 16.95L10.5862 12L5.63623 7.04999L7.05023 5.63599L12.0002 10.586Z" fill="currentColor"></path>
-        </svg>
-      </div>
-    </a>
-    <div class="container-small-2">
-      <!-- <div class="contact-form">
-        <div class="form-block w-form">
-          <form id="email-form" name="email-form" data-name="Email Form" method="get" class="form" data-wf-page-id="66e8dee2171ca3c335f1b25d" data-wf-element-id="8c51fac8-55ce-1dcd-91c5-d8a0565b9e76">
-            <div class="w-layout-grid form-fields-grid">
-              <div id="w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e78-35f1b25d" class="form-field-wrapper"><label for="First-Name" class="form-field-label">First Name <span class="text-color-red-500">*</span></label><input class="form-text-field w-input" maxlength="256" name="First-Name" data-name="First Name" placeholder="Enter first name" type="text" id="First-Name"></div>
-              <div id="w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e7e-35f1b25d" class="form-field-wrapper"><label for="Last-Name" class="form-field-label">Last Name <span class="text-color-red-500">*</span></label><input class="form-text-field w-input" maxlength="256" name="Last-Name" data-name="Last Name" placeholder="Enter last name" type="text" id="Last-Name"></div>
-              <div id="w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e84-35f1b25d" class="form-field-wrapper"><label for="Email" class="form-field-label">Email <span class="text-color-red-500">*</span></label><input class="form-text-field w-input" maxlength="256" name="Email" data-name="Email" placeholder="Enter your email" type="email" id="Email"></div>
-              <div id="w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e8a-35f1b25d" class="form-field-wrapper"><label for="Message" class="form-field-label">Message <span class="text-color-red-500">*</span></label><textarea id="Message" name="Message" maxlength="5000" data-name="Message" placeholder="Enter your message" class="form-text-field form-text-area w-input"></textarea><label class="w-checkbox form-checkbox">
-                  <div class="w-checkbox-input w-checkbox-input--inputType-custom form-checkbox-icon"></div><input type="checkbox" name="Checkbox-2" id="Checkbox-2" data-name="Checkbox 2" style="opacity:0;position:absolute;z-index:-1"><span class="paragraph-regular-2 w-form-label" for="Checkbox-2">I agree with <a href="#" class="text-link">Term and Conditions</a></span>
-                </label></div>
-            </div><input type="submit" data-wait="Please wait..." class="button-secondary-large w-button" value="Send Message">
-          </form>
-          <div class="form-success-message w-form-done">
-            <div>Thank you! Your submission has been received!</div>
-          </div>
-          <div class="form-error-message w-form-fail">
-            <div>Oops! Something went wrong while submitting the form.</div>
-          </div>
-        </div>
-      </div> -->
-    </div>
   </div>

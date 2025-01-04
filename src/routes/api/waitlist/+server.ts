@@ -3,34 +3,34 @@ import type { RequestHandler } from './$types';
 import { prisma } from '$lib/server/prisma';
 
 export const GET: RequestHandler = async ({ cookies }) => {
-				try {
-								const email = cookies.get('waitlist_email');
-        
-								if (!email) {
-												return json({ error: 'No waitlist cookie found' }, { status: 404 });
-								}
+	try {
+		const email = cookies.get('waitlist_email');
 
-								const entry = await prisma.waitlistEntry.findUnique({
-												where: { email },
-												select: {
-																email: true,
-																referralCount: true,
-																hasAppAccess: true,
-																hasRateLimit: true,
-																hasCredit: true,
-																referralCode: true
-												}
-								});
+		if (!email) {
+			return json({});
+		}
 
-								if (!entry) {
-												return json({ error: 'Entry not found' }, { status: 404 });
-								}
+		const entry = await prisma.waitlistEntry.findUnique({
+			where: { email },
+			select: {
+				email: true,
+				referralCount: true,
+				hasAppAccess: true,
+				hasRateLimit: true,
+				hasCredit: true,
+				referralCode: true
+			}
+		});
 
-								return json({ entry });
-				} catch (error) {
-								console.error('Error fetching waitlist entry:', error);
-								return json({ error: 'Failed to fetch waitlist entry' }, { status: 500 });
-				}
+		if (!entry) {
+			return json({ error: 'Entry not found' }, { status: 409 });
+		}
+
+		return json({ entry });
+	} catch (error) {
+		console.error('Error fetching waitlist entry:', error);
+		return json({ error: 'Failed to fetch waitlist entry' }, { status: 500 });
+	}
 };
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
@@ -54,16 +54,19 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		});
 
 		if (existingEntry) {
-			return json({ 
-				error: 'Email already registered',
-				stats: {
-					referralCount: existingEntry.referralCount,
-					hasAppAccess: existingEntry.hasAppAccess,
-					hasRateLimit: existingEntry.hasRateLimit,
-					hasCredit: existingEntry.hasCredit,
-					referralCode: existingEntry.referralCode
-				}
-			}, { status: 400 });
+			return json(
+				{
+					error: 'Email already registered',
+					stats: {
+						referralCount: existingEntry.referralCount,
+						hasAppAccess: existingEntry.hasAppAccess,
+						hasRateLimit: existingEntry.hasRateLimit,
+						hasCredit: existingEntry.hasCredit,
+						referralCode: existingEntry.referralCode
+					}
+				},
+				{ status: 400 }
+			);
 		}
 
 		// Handle referral logic
@@ -93,13 +96,13 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 				const currentReferrer = await tx.waitlistEntry.findUnique({
 					where: { id: referringEntry.id }
 				});
-				
+
 				if (!currentReferrer) {
 					throw new Error('Referrer no longer exists');
 				}
 
 				const newCount = currentReferrer.referralCount + 1;
-				
+
 				// Update referrer's counts and tier status atomically
 				const updatedReferrer = await tx.waitlistEntry.update({
 					where: { id: referringEntry.id },
