@@ -198,10 +198,10 @@ let usefullCommands = `
         </div>
       </div>
    <AnimatedBackgroundWrapper animationType="WAVES">
-    <section class="section-regular !max-w-full !overflow-x-hidden">
+    <section class="section-regular !max-w-full !overflow-x-hidden pr-0">
       <div class="container-large !mx-auto !px-4">
         <div class="flex gap-8">
-        <aside class="fixed top-4 -left-8 hidden lg:block w-64 h-screen overflow-y-auto border-divider mt-16">
+        <aside class="fixed top-4  hidden lg:block w-64 h-screen overflow-y-auto border-divider mt-16">
           <TableOfContents items={tocItems} {activeId} />
         </aside>
         <div class="container-small w-full">
@@ -401,7 +401,7 @@ let usefullCommands = `
         overflow-y: auto;
         /* Add some space at the bottom to prevent content from being cut off */
         padding-bottom: 2rem;
-        left: 18rem;
+        left: 1rem;
         /* Ensure the scrollbar doesn't cause horizontal scrolling */
         scrollbar-gutter: stable;
     }

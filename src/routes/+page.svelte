@@ -144,7 +144,7 @@
                 <p class="paragraph-x-large text-color-gray-500 _18 center">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
                 <Pipeline currentStage={4} progress={[100, 100, 100, 100, 100]} currentPage={null} />
                 </div>
-                <div class="header-logos-wrapper">
+                <div class="header-logos-wrapper mt-6">
                     <div class="header-logo-row !flex !justify-center !space-x-4">
                         <img src={amazonLogo} loading="lazy" alt="" class="logoheader">
                         <img src={zillowLogo} loading="lazy" alt="" class="logoheader">
