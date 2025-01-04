@@ -292,7 +292,7 @@
                 <h1 class="display-heading text-center">Your AI pair programmer that <span class="text-span"> ships code</span></h1>
               </div>
               <div class="max-width-regular mx-auto">
-                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you or asynchronously to get more done.</p>
+                <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you to get more done.</p>
               </div>
 
     <video 
