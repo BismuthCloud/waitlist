@@ -136,7 +136,7 @@
                   <h1 class="display-heading text-center">Bismuth <span class="text-span">ships</span> and <span class="text-span">fixes</span> code.</h1>
                 </div>
                 <div class="max-width-regular mx-auto">
-                  <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you or asynchronously to ship code and find and fix bugs.</p>
+                  <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you to ship code or asynchronously to find and fix bugs.</p>
                 </div>
 
                 <div class="mt-24">
