@@ -289,7 +289,7 @@
           <div class="column-x-large column-center w-full max-w-4xl">
             <div class="column-large column-center text-center">
               <div class="column-regular column-center">
-                <h1 class="display-heading text-center">Your AI pair programmer that <span class="text-span"> ships code</span></h1>
+                <h2 class="display-heading-smaller center text-center">Your AI pair programmer that <span class="text-span"> ships code</span></h2>
               </div>
               <div class="max-width-regular mx-auto">
                 <p class="paragraph-x-large text-color-gray-500 text-center">Bismuth is an AI coding agent that helps you tackle your backlog. It understands your codebase, follows your patterns, and works alongside you to get more done.</p>
@@ -601,7 +601,7 @@
         </div>
       </div>
       <div class="w-layout-grid process-grid">
-        <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f02424505d-35f1b25d" class="process-image-wrapper fade flex sm:flex-col">
+        <div id="w-node-c0906dc2-a4c3-a077-3caf-a6f02424505d-35f1b25d" class="process-image-wrapper fade flex flex-col">
           <Terminal 
           title="nickgregory@MBP:~"
           content="biscli chat"
@@ -634,7 +634,7 @@
           <p class="paragraph-x-large text-color-gray-500 _18 center">Scale your AI development capabilities with precision and control.</p>
         </div>
       </div>
-      <div class="pricing-grid-pair-programming">
+      <div class="pricing-grid-pair-programming flex flex-col sm:grid">
         <div class="pricing-tier">
           <h1 class="pricing-header">Individual</h1>
           <span class="price">

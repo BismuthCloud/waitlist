@@ -223,6 +223,14 @@ export default {
 					'900': '#330D00'
 				}
 			}
+		},
+		screens: {
+			xs: '475px', // Adding xs breakpoint at 475px
+			sm: '640px', // Default breakpoint
+			md: '768px', // Default breakpoint
+			lg: '1024px', // Default breakpoint
+			xl: '1280px', // Default breakpoint
+			'2xl': '1536px' // Default breakpoint
 		}
 	},
 
