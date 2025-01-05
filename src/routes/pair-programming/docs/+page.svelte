@@ -3,7 +3,6 @@
     export const ssr = false;
     import TableOfContents from '$lib/components/TableOfContents.svelte';
  
-    import AnimatedBackgroundWrapper from '$lib/components/AnimatedBackgroundWrapper.svelte';
     import Terminal from '$lib/components/Terminal.svelte';
     import Chat from '$lib/components/Chat.svelte';
     import '$lib/vendor/css/normalize.css';
@@ -12,11 +11,6 @@
     import '../../../app.css';
     import { onMount } from 'svelte';
     import logo from '$lib/images/bismuthos-logo.svg';
-
-    function iOS() {
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0);
-    }
 
     const tocItems = [
     {
@@ -203,7 +197,6 @@ let usefullCommands = `
 				</div>
         </div>
       </div>
-   <AnimatedBackgroundWrapper animationType={iOS() ? null : "WAVES"}>
     <section class="section-regular !max-w-full !overflow-x-hidden pr-0">
       <div class="container-large !mx-auto !px-4">
         <div class="flex gap-8">
@@ -393,7 +386,6 @@ let usefullCommands = `
       </div>
     </div>
   </section>
-</AnimatedBackgroundWrapper>
 <style>
   .border-divider {
         border-right: 1px solid #e5e7eb;
