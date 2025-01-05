@@ -13,6 +13,11 @@
     import { onMount } from 'svelte';
     import logo from '$lib/images/bismuthos-logo.svg';
 
+    function iOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 0);
+    }
+
     const tocItems = [
     {
         id: "getting-started",
@@ -151,17 +156,18 @@ biscli import path/to/repo
 
 # Import with file upload (recommended)
 biscli import path/to/repo --upload
-
-# Import with specific branch
-biscli import path/to/repo --branch develop
 `
 
 let chatCommands = `
 /help           Show available commands and usage information
 /status         Check the current repository and Bismuth's status
-/clear          Clear the chat history
 /feedback       Send feedback or report issues
-/quit           Exit the chat interface (or press Esc)`
+/docs           Open the Bismuth documentation
+/session {name} Switch to a chat session with a specific name
+/diff           Show the diff of the last changes made by Bismuth
+/refill         Refill your credits
+/exit           Exit the chat session
+`
 
 let usefullCommands = `
 /help     - Get information about available commands
@@ -197,7 +203,7 @@ let usefullCommands = `
 				</div>
         </div>
       </div>
-   <AnimatedBackgroundWrapper animationType="WAVES">
+   <AnimatedBackgroundWrapper animationType={iOS() ? null : "WAVES"}>
     <section class="section-regular !max-w-full !overflow-x-hidden pr-0">
       <div class="container-large !mx-auto !px-4">
         <div class="flex gap-8">
@@ -205,8 +211,8 @@ let usefullCommands = `
           <TableOfContents items={tocItems} {activeId} />
         </aside>
         <div class="container-small w-full">
-          <h1 class="display-heading center text-center">Getting Started with <span class="text-span">Bismuth</span></h1>
-          <p class="paragraph-x-large text-color-gray-500 text-center">Follow this guide to quickly set up and start using Bismuth your AI pair programmer that deeply understands your project.</p>
+          <h1 class="display-heading">Getting Started with <span class="text-span">Bismuth</span></h1>
+          <p class="paragraph-x-large text-color-gray-500">Follow this guide to quickly set up and start using Bismuth your AI pair programmer that deeply understands your project.</p>
   
           <div class="content-wrapper mt-12">
             <h2 class="h2-heading" id="installation">Installation</h2>
@@ -263,6 +269,8 @@ let usefullCommands = `
           <p class="paragraph-x-large text-color-gray-500">The chat interface is your primary way of interacting with Bismuth. Understanding how to use it effectively will help you get the most out of Bismuth's capabilities.</p>
 
           <h3 class="h3 mt-8" id="starting-a-chat-session">Starting a Chat Session</h3>
+          <p class="paragraph-x-large text-color-gray-500">First import your project into Bismuth. (Optional: You'll be asked if you want to send us your codebase this is strictly for better static analysis and search. We do not train on any of your code.)</p>
+          <Terminal content="biscli import './your-project'" />
           <p class="paragraph-x-large text-color-gray-500">You can start a chat session for any imported repository using the chat command. Bismuth will load the repository's context and be ready to help with your codebase:</p>
           <Terminal content="biscli chat --repo path/to/your/repo" />
 

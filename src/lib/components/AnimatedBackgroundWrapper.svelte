@@ -70,6 +70,10 @@
     };
 
     onMount(() => {
+        if(animationType === null) {
+           return; 
+        }
+
         if (typeof VANTA !== 'undefined') {
             // Merge default config with custom config
             const mergedConfig = {

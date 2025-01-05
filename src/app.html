@@ -2,8 +2,26 @@
 <html lang="en" data-wf-page="66e8dee2171ca3c335f1b25d" data-wf-site="66e8dee2171ca3c335f1b257">
 	<head>
 		<meta charset="utf-8">
-		<title>Bismuth</title>
+		<!-- Basic Meta Tags -->
+		<title>Bismuth - Your AI Pair Programmer</title>
+		<meta name="description" content="Bismuth understands your codebase, follows your patterns, and works alongside you to get more done." />
+	
+		<!-- Open Graph / LinkedIn -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://bismuth.sh" />
+		<meta property="og:title" content="Bismuth - Your AI Pair Programmer" />
+		<meta property="og:description" content="An AI pair programmer that understands your codebase, follows your patterns, and helps you ship code." />
+		<meta property="og:image" content="https://bismuth.sh/og-image.png" />
+	
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content="https://bismuth.sh" />
+		<meta name="twitter:title" content="Bismuth - Your AI Pair Programmer" />
+		<meta name="twitter:description" content="A revolutionary AI pair programmer that understands your codebase, follows your patterns, and ships code." />
+		<meta name="twitter:image" content="https://bismuth.sh/og-image.png" />
 		<meta content="width=device-width, initial-scale=1" name="viewport">
+
+		<script type="text/javascript" src="//script.crazyegg.com/pages/scripts/0124/3700.js" async="async" ></script>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
 		<!-- Note: Tailwind CSS may conflict with Webflow styles. Test thoroughly and use !important if needed -->
 		<link href="https://fonts.googleapis.com" rel="preconnect">
@@ -17,6 +35,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
 		<link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/favicon.svg">
 		<link href="images/webclip.png" rel="apple-touch-icon">
+
+		    
 		<style>
 	  .navbar {
 		  position: fixed;
@@ -81,10 +101,8 @@
 				  // Update lastScrollTop for the next scroll event
 				  lastScrollTop = scrollTop;
 			  });
-		  } else {
-			  console.error("Navbar element not found. Make sure the class name matches your navbar.");
-		  }
-	  });
+		  } 
+		});
 	  </script>
 	  %sveltekit.head%
 	  </head>

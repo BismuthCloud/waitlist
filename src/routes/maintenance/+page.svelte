@@ -9,6 +9,8 @@
   import ContactForm from '$lib/components/ContactForm.svelte';
   import ImageContainer from '$lib/components/ImageContainer.svelte';
   import ProgrammingButton from '$lib/components/ProgrammingButton.svelte';
+  import ShareButton from '$lib/components/ShareButton.svelte';
+  import DiscordButton from '$lib/components/DiscordButton.svelte';
 
 	import { onMount } from 'svelte';
 	import confetti from 'canvas-confetti';
@@ -18,7 +20,7 @@
   import googleLogo from '$lib/images/uim_google.svg';
   import pr_review from '$lib/images/pr-review.png';
   import code2 from '$lib/images/code2.svg';
-  import screen from '$lib/images/screen.svg';
+  import screen from '$lib/images/screen.svg'
   import icon from '$lib/images/icon.svg';
   import icon1 from '$lib/images/icon-1.svg';
   import icon2 from '$lib/images/icon-2.svg';
@@ -189,33 +191,20 @@
     <div class="container-large !max-w-full !overflow-x-hidden">
       <div class="navigation-row">
         <div class="navigation-left">
-          <a href="#" class="navigation-logo-link w-inline-block"><img loading="lazy" src={logo} alt="" class="navigation-logo"></a>
+          <a href="https://www.bismuth.sh" class="navigation-logo-link w-inline-block"><img loading="lazy" src={logo} alt="" class="navigation-logo"></a>
           <nav role="navigation" class="navigation-menu w-nav-menu">
             <div class="navigation-links">
               <a href="#features" class="navigation-link w-nav-link">Features</a>
               <a href="#how-it-works" class="navigation-link w-nav-link">How it works</a>
-              <a href="#testimonial" class="navigation-link w-nav-link">Testimonials</a>
             </div>
           </nav>
         </div>
         <div class="navigation-right">
+          <ShareButton />
+          <DiscordButton />
           <div class="navigation-menu-button w-nav-button">
             <div class="w-icon-nav-menu"></div>
           </div>
-
-          <div class="z-10">
-					<a 
-						href="https://discord.gg/bismuthai" 
-						target="_blank" 
-						rel="noopener noreferrer" 
-						class="flex items-center gap-1 px-3 py-1.5 text-sm bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-full transition-colors"
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256" fill="currentColor" class="w-4 h-4">
-							<path d="M197.33,81.39a160.61,160.61,0,0,0-42.4-13.13.81.81,0,0,0-.86.41,110.44,110.44,0,0,0-4.86,10,147.47,147.47,0,0,0-44.4,0,110.44,110.44,0,0,0-4.86-10,.84.84,0,0,0-.86-.41,160.13,160.13,0,0,0-42.4,13.13.76.76,0,0,0-.35.3C21.66,123.08,10.83,163.66,14.73,203.83a.67.67,0,0,0,.25.46,162.47,162.47,0,0,0,48.86,24.7.84.84,0,0,0,.91-.3,115.52,115.52,0,0,0,10-16.26.82.82,0,0,0-.45-1.14,107.39,107.39,0,0,1-15.32-7.3.83.83,0,0,1-.08-1.38c1-.75,2-1.53,2.93-2.32a.81.81,0,0,1,.85-.11c31,14.11,64.46,14.11,95.13,0a.81.81,0,0,1,.86.11c.95.79,1.93,1.57,2.94,2.32a.83.83,0,0,1-.07,1.38,100.92,100.92,0,0,1-15.32,7.3.83.83,0,0,0-.44,1.14,129.57,129.57,0,0,0,10,16.26.83.83,0,0,0,.91.3,161.79,161.79,0,0,0,49-24.7.84.84,0,0,0,.25-.46c4.53-44.66-7.6-83.92-32.12-118.14A.67.67,0,0,0,197.33,81.39ZM85.34,175.16c-10.73,0-19.55-9.85-19.55-21.93s8.68-21.93,19.55-21.93,19.68,9.85,19.55,21.93C104.89,165.31,96.21,175.16,85.34,175.16Zm85.33,0c-10.73,0-19.55-9.85-19.55-21.93s8.68-21.93,19.55-21.93,19.68,9.85,19.55,21.93C190.22,165.31,181.4,175.16,170.67,175.16Z"/>
-						</svg>
-						Discord
-					</a>
-				</div>
         </div>
       </div>
     </div>
@@ -254,7 +243,7 @@
               <div>Products</div>
             </div>
             <h3 class="h2-heading">Explore Our Other Solutions</h3>
-            <p class="paragraph-x-large text-color-gray-500 _18 center">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
+            <p class="text-color-gray-500">Engineered by developers who understand the complexities of modern software development--delivering precision and efficiency.</p>
           </div>
       </div>
       <Pipeline currentStage={4} progress={[100, 100, 100, 100, 100]} currentPage="maintenance" />
@@ -277,7 +266,7 @@
           <div class="div-block-4 left">
             <div class="div-block-5">
               <h3 class="h3">Catch issues before they're merged.</h3>
-              <p class="paragraph-x-large text-color-gray-500 _18">Bismuth can leave comments for critical issues with suggested fixes as they review your pull request.</p>
+              <p class="text-color-gray-500 _18">Bismuth can leave comments for critical issues with suggested fixes as they review your pull request.</p>
             </div>
             <a href="#how-it-works" class="button-primary-large w-inline-block">
               <div>Learn more</div>
@@ -311,7 +300,7 @@
             <div>Technical Capabilities</div>
           </div>
           <h3 class="h2-heading">Bug fixing, quality, and security go hand in hand.</h3>
-          <p class="paragraph-x-large text-color-gray-500 _18">Bismuth acts as a second line of defense against bugs that can cause financial harm and reputational damage. We reduce the time your developers spend fixing bugs and let them keep their focus on features.</p>
+          <p class="text-color-gray-500 _18">Bismuth acts as a second line of defense against bugs that can cause financial harm and reputational damage. We reduce the time your developers spend fixing bugs and let them keep their focus on features.</p>
         </div>
       </div>
       <div class="column-x-large-2 fade">
