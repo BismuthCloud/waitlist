@@ -1,7 +1,8 @@
 <script lang="ts">
   export const ssr = false;
   export const csr = true;
-  
+ 
+  import NotificationBanner from '$lib/components/NotificationBanner.svelte';
   import Pipeline from '$lib/components/Pipeline.svelte';
   import Callgraph from '$lib/components/Callgraph.svelte';
   import Terminal from '$lib/components/Terminal.svelte';
@@ -606,7 +607,7 @@
         <div class="column-x-large column-center">
           <h1 class="display-heading center">Ready to get started?</h1>
           <div class="max-width-regular">
-            <p class="paragraph-x-large text-color-gray-500 cemter">Focus on your code, not the setup. Our AI-powered agent handle the rest.</p>
+            <p class="paragraph-x-large text-color-gray-500 cemter">Focus on your code, not the setup. Our AI-powered agent handles the rest.</p>
           </div>
           <div class="div-block-8">
             <a href="#quickstart" class="button-secondary-large w-inline-block">
