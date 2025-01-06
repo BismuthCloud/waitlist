@@ -9,11 +9,10 @@
     export let autoHideSeconds = 5;
     export let href = 'https://bismuth.sh/pair-programming#quickstart';
     
-    let isVisible = true;
+    let isVisible = false;
   
     onMount(() => {
-      const dismissed = false;
-      isVisible = !dismissed;
+      isVisible = false;
   
       if (isVisible && autoHideSeconds) {
         setTimeout(dismiss, autoHideSeconds * 1000);

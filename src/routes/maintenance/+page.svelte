@@ -544,8 +544,8 @@
           <div class="div-block-10">
             <p class="paragraph-small text-color-gray-600">(c)2024</p>
             <div class="div-block-11">
-              <a href="#" class="paragraph-small text-color-gray-600 link">Terms</a>
-              <a href="#" class="paragraph-small text-color-gray-600 link">Privacy Policy</a>
+              <a href="https://www.privacypolicies.com/live/7dd85f3a-69ad-44e2-9836-7539533ad616" class="paragraph-small text-color-gray-600 link">Terms</a>
+              <a href="https://www.privacypolicies.com/live/0427f571-c20b-43b8-b0f0-358ae4af43df" class="paragraph-small text-color-gray-600 link">Privacy Policy</a>
             </div>
             <p class="paragraph-small text-color-gray-600">Site by <a href="#" class="link">Vivido</a>
             </p>
