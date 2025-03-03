@@ -152,42 +152,6 @@
     initializeWebflow();
   });
 
-	const getNextTier = (count: number): TierInfo | null => {
-		return tiers.find(tier => tier.count > count) || null;
-	};
-
-	const getProgressToNextTier = (count: number): number => {
-		const nextTier = getNextTier(count);
-		if (!nextTier) return 100;
-		const prevTier = tiers[tiers.findIndex(t => t === nextTier) - 1];
-		const start = prevTier ? prevTier.count : 0;
-		return ((count - start) / (nextTier.count - start)) * 100;
-	};
-
-	const fireConfetti = () => {
-		const count = 200;
-		const defaults = { origin: { y: 0.7 }, zIndex: 1000 };
-		function fire(particleRatio: number, opts: any) {
-			confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
-		}
-		fire(0.25, { spread: 26, startVelocity: 55, colors: ['#ec4899', '#c084fc', '#f472b6'] });
-		fire(0.2, { spread: 60, colors: ['#ec4899', '#c084fc', '#f472b6'] });
-		fire(0.35, {
-			spread: 100,
-			decay: 0.91,
-			scalar: 0.8,
-			colors: ['#ec4899', '#c084fc', '#f472b6']
-		});
-		fire(0.1, {
-			spread: 120,
-			startVelocity: 25,
-			decay: 0.92,
-			scalar: 1.2,
-			colors: ['#ec4899', '#c084fc', '#f472b6']
-		});
-		fire(0.1, { spread: 120, startVelocity: 45, colors: ['#ec4899', '#c084fc', '#f472b6'] });
-	};
-
 </script>
   <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav">
     <div class="container-large !max-w-full !overflow-x-hidden">
@@ -212,7 +176,7 @@
     </div>
   </div>
   <AnimatedBackgroundWrapper>
-    <section class="w-full overflow-x-hidden py-16 mt-16 bg-[#0A0C1B] relative z-10 bg-transparent">
+    <section class="w-full overflow-x-hidden py-16 pt-24 bg-[#0A0C1B] relative z-10 bg-transparent">
       <div class="container mx-auto px-4 mt-8">
         <div class="max-w-7xl mx-auto">
           <div class="flex flex-col lg:flex-row justify-between items-center gap-8">
