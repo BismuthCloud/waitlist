@@ -239,8 +239,8 @@
             
             <!-- Right Column: GitHub Mockup - Increased size -->
             <div class="mt-12 lg:mt-auto lg:w-[600px] transform scale-110">
-              <div class="relative">
-                <span class="text-xs text-gray-500 absolute -top-6 left-0">Example visualization</span>
+              <div class="relative p-4 lg:p-0">
+                <span class="text-xs text-gray-500 absolute -top-6 left-4 lg:left-0">Example visualization</span>
                 <GitHubMockUp class="w-full" />
               </div>
             </div>
