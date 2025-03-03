@@ -82,7 +82,7 @@
     });
   </script>
   
-  <div class="rounded-lg overflow-hidden bg-[#1C1E26] border border-[#2D2F39] w-full" style="min-width: 600px;">
+  <div class="rounded-lg overflow-hidden bg-[#1C1E26] border border-[#2D2F39] w-full lg:w-[600px] min-w-[400px]">
     <div class="bg-[#2D2F39] px-3 py-2 flex items-center">
       <div class="flex gap-1.5">
         <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
