@@ -24,7 +24,7 @@
     }
   
     .btn-secondary {
-      @apply bg-purple-gray text-neutral-light font-medium px-4 py-2 rounded-lg 
+      @apply bg-blue-500 text-neutral-light font-medium px-4 py-2 rounded-lg 
       hover:bg-opacity-90 transition-all duration-200 ease-in-out;
     }
   

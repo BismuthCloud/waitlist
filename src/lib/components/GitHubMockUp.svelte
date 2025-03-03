@@ -1,6 +1,15 @@
 <script>
   const pullRequests = [
     {
+  number: 129,
+  title: 'Feature: Implemented batch processing API for image transformations',
+  mergedAt: '5 minutes ago',
+  author: 'bismuth[bot]',
+  status: 'merged',
+  tasks: '7 of 7 tasks complete',
+  labels: ['feature', 'enhancement', 'api']
+},
+    {
       number: 128,
       title: 'Critical: Fixed memory overflow in image processing pipeline',
       mergedAt: '14 minutes ago',
@@ -11,26 +20,17 @@
     },
     {
       number: 127,
-      title: 'Security: Updated vulnerable dependencies in image processor',
-      mergedAt: '2 hours ago',
-      author: 'bismuth[bot]',
-      status: 'merged',
-      tasks: '5 of 5 tasks complete',
-      labels: ['security', 'dependencies']
-    },
-    {
-      number: 126,
       title: 'Fixed: Null pointer exception in image resize operation',
       mergedAt: '3 hours ago',
       author: 'bismuth[bot]',
       status: 'merged',
       tasks: '4 of 4 tasks complete',
       labels: ['bug']
-    }
+    },
   ];
   </script>
  
-  <div class="flex flex-col justify-center items-center mt-16">
+  <div class="flex flex-col justify-center items-center shadow-lg rounded-lg">
   <div class="rounded-lg overflow-hidden bg-[#1C1E26] border border-[#2D2F39] w-full">
     <div class="bg-[#2D2F39] px-3 py-2 flex items-center">
       <div class="flex gap-1.5">
@@ -61,7 +61,7 @@
                 <svg class="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"/>
                 </svg>
-                Merged by <span class="text-purple-400 font-medium">bismuth[bot]</span>
+                Author <span class="text-purple-400 font-medium">bismuth[bot]</span>
               </span>
               <span class="text-green-400">{pr.tasks}</span>
             </div>
@@ -76,9 +76,5 @@
         </div>
       {/each}
     </div>
-
-  </div>
-  <div class="text-xs text-gray-500 mt-4">
-        Example visualization
   </div>
   </div>

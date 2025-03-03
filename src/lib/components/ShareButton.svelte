@@ -17,7 +17,7 @@
   
     const getShareConfig = () => {
   const defaultUrl = "https://bismuth.sh";
-  const twitterText = "Check out Bismuth - an AI pair programmer that understands your codebase and helps ship code faster! 🚀 #AI #developers #coding  #programming #BismuthCodes";
+  const twitterText = "Check out Bismuth - an end to end AI developer that takes backlog tickets and quickly makes clean tested PRs! They use static analysis, test running and fuzzing to ensure higher quality code than competitors. 🚀 #AI #developers #coding  #programming #BismuthCodes";
   
   return {
     X: {
