@@ -2,7 +2,7 @@
   export const csr = true;
   export const ssr = false;
 
-
+  import CostEstimator from '$lib/components/CostEstimator.svelte';
   import GitHubMockUp from '$lib/components/GitHubMockUp.svelte';
   import AnimatedBackgroundWrapper from '$lib/components/AnimatedBackgroundWrapper.svelte';
   import ContactForm from '$lib/components/ContactForm.svelte';
@@ -195,10 +195,14 @@
               <p class="text-sm text-gray-500 mb-8">
                 Bismuth works best on Python and JavaScript (TypeScript) code bases. While we do support most languages, we are still in the process of ramping up analysis for languages like Go, Rust and Java. 
               </p>
-              
+              <div class="flex flex-col gap-2 lg:max-w-xs">
               <a href="https://github.com/apps/bismuthdev" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-md transition-colors duration-200 text-center w-full md:w-auto">
                 Install the GitHub App
               </a>
+              <a href="http://app.bismuth.sh/login" class="inline-block btn-outline hover:bg-gray-600 text-white font-medium py-3 px-8 rounded-md transition-colors duration-200 text-center w-full md:w-auto border border-gray-500 hover:border-transparent xs:hidden md:inline-block">
+                Sign Up
+              </a>
+              </div>
             </div>
             
             <!-- Right Column: GitHub Mockup - Increased size -->
@@ -523,41 +527,61 @@ Ship backlogged features and fix critical issues before they become a problem wi
           <div class="badge-large blue">
             <div>Pricing</div>
           </div>
-          <h3 class="h2-heading">A Standard Usage Pricing</h3>
+          <h3 class="h2-heading">Simple Usage-Based Pricing</h3>
           <p class="paragraph-x-large text-color-gray-500 _18 center"></p>
         </div>
       </div>
       <div class="pricing-grid mx-auto">
-        <div class="pricing-tier !bg-transparent">
-          </div>
         <div class="pricing-tier">
-          <h1 class="pricing-header">Cost For Everyone</h1>
-          <span class="price">
-            $1.5 / 100 Credits
+            <h3 class="pricing-header">Free 1000 Credits</h3>
+<ul class="list-disc text-left pricing-features block px-12 text-md">
+  <li class="">All accounts start with 1000 free credits.</li>
+  <li>1k = Approximately 4-5 tasks or code reviews.
+</li>
+  <li>Or scan a medium repository + 1-2 tasks.</li>
+  <li>Use immediately after signup, no expiration.</li>
+    <span class="font-bold text-lg">No credit card required.
+</span>
+</ul>
+        </div>
+        <div class="pricing-tier">
+          <h1 class="pricing-header">Standard Pricing</h1>
+          <span class="price text-xl">
+            $1.50 per 100 Credits
           </span>
-          <ul class="pricing-features">
-            <li>1 task .approx 50-200 Credits</li>
-            <li>1 review .approx 150 Credits</li>
-            <li>1 scan .approx 800 Credits on a large (10k loc+) codebase</li>
-            <li>100 credits is .approx 300k input + 10k output tokens</li>
+          <ul class="pricing-features px-12 list-disc text-left block mt-2">
+            <li>1 task: ~50-200 credits</li>
+            <li>1 review: ~50-200 credits</li>
+            <li>1 scan: ~800 credits (10k+ LOC codebase)</li>
+            <li>100 credits processes ~300k input + 10k output tokens</li>
+              <span class="font-bold text-md">Pay as you go. Purchase any amount.
+              Enable auto-refill to avoid interruptions.</span>
           </ul>
-            <a href="https://github.com/apps/bismuthdev" class="button-secondary-large !bg-blue-500 w-inline-block">
-              <div>Install the GitHub App</div>
+            <a href="https://app.bismuth.cloud/settings/billing" class="button-secondary-large !bg-blue-500 w-inline-block mt-2 hover:text-white hover:!bg-blue-600">
+              <div>Add Credits</div>
             </a>
         </div>
         <div class="pricing-tier">
           <h1 class="pricing-header">Enterprise</h1>
-          <ul class="pricing-features">
+          <ul class="pricing-features mb-2 px-12 list-disc text-left block mt-2">
             <li>Custom Integrations</li>
             <li>SSO and Compliance</li>
             <li>Custom SLAs</li>
             <li>Deploy In Your Cloud</li>
+            <span class="font-bold text-lg">
+              Contact our team for volume pricing
+              and enterprise requirements.
+            </span>
           </ul>
           <ContactForm transparent={true} subject="Enterprise Product Contact Form"/>
         </div>
         <div class="pricing-tier !bg-transparent">
           </div>
       </div>
+    </div>
+    <div class="mt-8">
+      <h3 class="h2-heading text-center mb-8">Estimate Your Cost</h3>
+    <CostEstimator />
     </div>
   </section>
   <section class="section-large-2">

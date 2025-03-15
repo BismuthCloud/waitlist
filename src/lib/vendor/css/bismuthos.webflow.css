@@ -133,6 +133,7 @@
 	font-weight: 600;
 	line-height: 85px;
 }
+
 .display-heading-smaller.center {
 	text-align: center;
 	font-size: 60px;
@@ -258,10 +259,11 @@
 
 .pricing-grid {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 24px;
 	max-width: 1200px;
 	margin: 0 auto;
+	text-align: center;
 }
 
 .pricing-grid-pair-programming {
@@ -3076,6 +3078,7 @@
 }
 
 @media screen and (max-width: 479px) {
+
 	#w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e78-35f1b25d,
 	#w-node-_8c51fac8-55ce-1dcd-91c5-d8a0565b9e7e-35f1b25d {
 		grid-area: span 1 / span 2 / span 1 / span 2;
